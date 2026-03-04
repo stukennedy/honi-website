@@ -749,6 +749,36 @@ footer::before {
 
 .docs-nav-spacer { height: 12px }
 
+.docs-sidebar-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.docs-sidebar-title {
+  font-family: var(--ui);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.docs-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  line-height: 1;
+}
+.docs-close-btn:hover { color: var(--text); background: var(--surface); }
+
 .docs-nav-link {
   display: block;
   font-family: var(--body);
@@ -921,18 +951,29 @@ footer::before {
 .docs-next a:hover { opacity: 0.8 }
 
 @media (max-width: 768px) {
-  .docs-menu-btn { display: block }
+  .docs-menu-btn { display: flex; align-items: center; gap: 6px; }
   .docs-sidebar {
     display: none;
     position: fixed;
     top: 48px;
     left: 0;
-    width: 260px;
+    right: 0;
+    bottom: 0;
+    width: 100%;
     z-index: 90;
     background: var(--bg);
-    box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+    overflow-y: auto;
+    padding: 24px 28px 80px;
   }
   .docs-sidebar.open { display: block }
+  .docs-sidebar-header { display: flex }
+  .docs-nav-heading { font-size: 12px; margin-top: 24px; }
+  .docs-nav-link {
+    font-size: 16px;
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+  }
   .docs-main {
     margin-left: 0;
     padding: 32px 20px 60px;

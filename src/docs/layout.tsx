@@ -16,12 +16,18 @@ export const DocsLayout: FC<PropsWithChildren<{ active: string }>> = ({ children
   <>
     <div class="docs-topbar">
       <a href="/" class="docs-back">&larr; Back to honi.dev</a>
-      <button class="docs-menu-btn" onclick="document.querySelector('.docs-sidebar').classList.toggle('open')">
-        Menu
+      <button class="docs-menu-btn" onclick="document.getElementById('docs-sidebar').classList.toggle('open')">
+        ☰ Menu
       </button>
     </div>
     <div class="docs-shell">
-      <aside class="docs-sidebar">
+      <aside id="docs-sidebar" class="docs-sidebar">
+        <div class="docs-sidebar-header">
+          <span class="docs-sidebar-title">Navigation</span>
+          <button class="docs-close-btn" onclick="document.getElementById('docs-sidebar').classList.remove('open')">
+            ✕
+          </button>
+        </div>
         <nav class="docs-nav">
           {navItems.map((item) => {
             if ('heading' in item) {
@@ -31,6 +37,7 @@ export const DocsLayout: FC<PropsWithChildren<{ active: string }>> = ({ children
               <a
                 href={item.href}
                 class={`docs-nav-link${active === item.href ? ' active' : ''}`}
+                onclick="document.getElementById('docs-sidebar').classList.remove('open')"
               >
                 {item.label}
               </a>
