@@ -673,12 +673,14 @@ footer::before {
 @media (max-width: 768px) {
   .feature-grid { grid-template-columns: 1fr }
   nav { padding: 0 16px }
-  .container { padding: 0 20px }
+  .container { padding: 0 16px }
   section { padding: 60px 0 }
   .punch { padding: 80px 0 }
-  .hero { padding: 80px 0 60px }
+  .hero { padding: 80px 0 60px; overflow-x: hidden }
   .hero h1 { font-size: clamp(2.5rem, 10vw, 4rem) }
   .hero .sub { font-size: 15px; line-height: 1.5; word-wrap: break-word; overflow-wrap: break-word; }
+  .hero-left { max-width: 100%; overflow: hidden }
+  .hero-right { max-width: 100%; overflow: hidden }
   .hero-ctas {
     flex-direction: column;
     align-items: stretch;
@@ -688,6 +690,7 @@ footer::before {
     width: 100%;
     text-align: center;
     justify-content: center;
+    box-sizing: border-box;
   }
   .hero-stats { flex-wrap: wrap; gap: 16px }
   .hero-stat { font-size: 11px }
@@ -695,7 +698,9 @@ footer::before {
   .compare-table { font-size: 12px }
   .compare-table th, .compare-table td { padding: 10px 14px }
   .npm-pill { display: none }
-  .code-body { font-size: 12px; padding: 16px }
+  .code-body { font-size: 12px; padding: 16px; overflow-x: auto }
+  .code-body .line > span:last-child { white-space: pre-wrap; word-break: break-all }
+  .hero-code { max-width: 100% }
   .docs-code { max-width: 100%; overflow-x: auto }
 }
 
@@ -1114,7 +1119,7 @@ app.get('/', (c) =>
                   <span class="code-lang">TypeScript</span>
                 </div>
                 <div class="code-body">
-                  <div class="line"><span class="ln">1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span> {'}'} <span class="kw">from</span> <span class="str">'honi'</span></span></div>
+                  <div class="line"><span class="ln">1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span> {'}'} <span class="kw">from</span> <span class="str">'honidev'</span></span></div>
                   <div class="line"><span class="ln">2</span><span></span></div>
                   <div class="line"><span class="ln">3</span><span><span class="kw">export const</span> <span class="fn">agent</span> <span class="op">=</span> <span class="fn">createAgent</span>({'{'}
                   </span></div>
@@ -1311,7 +1316,7 @@ app.get('/', (c) =>
                 <span class="code-lang">TypeScript</span>
               </div>
               <div class="code-body">
-                <div class="line"><span class="ln">1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span> {'}'} <span class="kw">from</span> <span class="str">'honi'</span></span></div>
+                <div class="line"><span class="ln">1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span> {'}'} <span class="kw">from</span> <span class="str">'honidev'</span></span></div>
                 <div class="line"><span class="ln">2</span><span></span></div>
                 <div class="line"><span class="ln">3</span><span><span class="kw">export const</span> <span class="fn">agent</span> <span class="op">=</span> <span class="fn">createAgent</span>({'{'}
                 </span></div>
