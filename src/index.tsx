@@ -754,7 +754,8 @@ footer::before {
   overflow-y: auto;
   padding: 24px 20px;
   border-right: 1px solid var(--border);
-  background: #ff0000;
+  background: var(--bg);
+  z-index: 50;
 }
 
 .docs-nav {
