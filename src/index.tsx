@@ -75,7 +75,7 @@ a { color: inherit; text-decoration: none }
 
 /* Everything rendered needs z-index above bg */
 nav, section, footer, .docs-topbar { position: relative; z-index: 2; }
-.docs-shell { position: relative; z-index: 2; display: flex; align-items: flex-start; }
+.docs-shell { position: relative; z-index: 2; }
 
 /* ── Nav ── */
 nav {
@@ -742,20 +742,19 @@ footer::before {
 .docs-shell {
   min-height: calc(100vh - 48px);
   margin-top: 48px;
+  padding-left: 240px;
 }
 
 .docs-sidebar {
-  width: 240px;
-  min-width: 240px;
-  flex-shrink: 0;
-  position: sticky;
+  position: fixed;
   top: 48px;
-  max-height: calc(100vh - 48px);
+  left: 0;
+  bottom: 0;
+  width: 240px;
   overflow-y: auto;
   padding: 24px 20px;
   border-right: 1px solid var(--border);
   background: var(--bg);
-  align-self: flex-start;
 }
 
 .docs-nav {
@@ -827,9 +826,8 @@ footer::before {
 }
 
 .docs-main {
-  flex: 1;
-  min-width: 0;
   padding: 48px 56px 80px;
+  max-width: 900px;
 }
 
 .docs-content h1 {
@@ -980,6 +978,7 @@ footer::before {
 
 @media (max-width: 768px) {
   .docs-menu-btn { display: flex; align-items: center; gap: 6px; }
+  .docs-shell { padding-left: 0; }
   .docs-sidebar {
     display: none;
     position: fixed;
@@ -988,9 +987,6 @@ footer::before {
     right: 0;
     bottom: 0;
     width: 100%;
-    min-width: 0;
-    height: auto;
-    max-height: none;
     z-index: 90;
     background: var(--bg);
     overflow-y: auto;
