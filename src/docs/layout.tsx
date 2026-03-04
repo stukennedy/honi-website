@@ -23,12 +23,12 @@ export const DocsLayout: FC<PropsWithChildren<{ active: string }>> = ({ children
     <div class="docs-shell">
       <aside id="docs-sidebar" class="docs-sidebar">
         <div class="docs-sidebar-header">
-          <span class="docs-sidebar-title">Navigation</span>
+          <span class="docs-sidebar-title">Docs</span>
           <button class="docs-close-btn" onclick="document.getElementById('docs-sidebar').classList.remove('open')">
             ✕
           </button>
         </div>
-        <nav class="docs-nav">
+        <nav class="docs-nav" style="margin-top: 16px;">
           {navItems.map((item) => {
             if ('heading' in item) {
               return item.heading ? <div class="docs-nav-heading">{item.heading}</div> : <div class="docs-nav-spacer" />
