@@ -10,7 +10,7 @@ export const WorkflowsPage = () => (
         <span class="code-lang">TypeScript</span>
       </div>
       <div class="code-body">
-        <div class="line"><span class="ln">1</span><span><span class="kw">import</span> {'{'} <span class="fn">workflow</span><span class="op">,</span> <span class="fn">step</span> {'}'} <span class="kw">from</span> <span class="str">'@stukennedy/honi'</span></span></div>
+        <div class="line"><span class="ln">1</span><span><span class="kw">import</span> {'{'} <span class="fn">workflow</span><span class="op">,</span> <span class="fn">step</span> {'}'} <span class="kw">from</span> <span class="str">'honidev'</span></span></div>
         <div class="line"><span class="ln">2</span><span></span></div>
         <div class="line"><span class="ln">3</span><span><span class="kw">function</span> <span class="fn">workflow</span>(<span class="pr">config</span><span class="op">:</span> <span class="ty">WorkflowConfig</span>)<span class="op">:</span> <span class="ty">Workflow</span></span></div>
         <div class="line"><span class="ln">4</span><span><span class="kw">function</span> <span class="fn">step</span>(<span class="pr">name</span><span class="op">:</span> <span class="ty">string</span><span class="op">,</span> <span class="pr">config</span><span class="op">:</span> <span class="ty">StepConfig</span>)<span class="op">:</span> <span class="ty">Step</span></span></div>
@@ -89,7 +89,7 @@ export const WorkflowsPage = () => (
         <span class="code-lang">TypeScript</span>
       </div>
       <div class="code-body">
-        <div class="line"><span class="ln"> 1</span><span><span class="kw">import</span> {'{'} <span class="fn">workflow</span><span class="op">,</span> <span class="fn">step</span> {'}'} <span class="kw">from</span> <span class="str">'@stukennedy/honi'</span></span></div>
+        <div class="line"><span class="ln"> 1</span><span><span class="kw">import</span> {'{'} <span class="fn">workflow</span><span class="op">,</span> <span class="fn">step</span> {'}'} <span class="kw">from</span> <span class="str">'honidev'</span></span></div>
         <div class="line"><span class="ln"> 2</span><span></span></div>
         <div class="line"><span class="ln"> 3</span><span><span class="kw">export const</span> <span class="fn">researchPipeline</span> <span class="op">=</span> <span class="fn">workflow</span>({'{'}
         </span></div>

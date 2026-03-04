@@ -236,16 +236,19 @@ nav {
 .btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 14px 32px;
+  padding: 14px 28px;
   background: var(--amber);
   color: #080A0E !important;
-  -webkit-text-fill-color: #080A0E;
-  font-family: var(--heading);
-  font-size: 18px;
-  letter-spacing: 0.08em;
+  -webkit-text-fill-color: #080A0E !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   border: none;
-  text-decoration: none;
+  text-decoration: none !important;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s;
@@ -1065,7 +1068,7 @@ app.get('/', (c) =>
           <a href="/docs" class="nav-link">Docs</a>
           <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener" class="nav-link">GitHub</a>
           <button class="npm-pill" id="npm-copy" type="button">
-            <span>npm install @stukennedy/honi</span>
+            <span>npm install honidev</span>
             <span class="copy-icon" id="copy-icon">&#x2398;</span>
           </button>
         </div>
@@ -1280,8 +1283,8 @@ app.get('/', (c) =>
                 <span class="qs-num">1</span>
                 <div class="qs-step-content">
                   <h4>Install</h4>
-                  <div class="qs-cmd" onclick="navigator.clipboard.writeText('npm install @stukennedy/honi');this.querySelector('span:last-child').textContent='copied!'">
-                    <span>npm install @stukennedy/honi</span>
+                  <div class="qs-cmd" onclick="navigator.clipboard.writeText('npm install honidev');this.querySelector('span:last-child').textContent='copied!'">
+                    <span>npm install honidev</span>
                     <span style="color:var(--text-muted);font-size:11px">↵</span>
                   </div>
                 </div>
@@ -1333,7 +1336,7 @@ app.get('/', (c) =>
             <span>·</span>
             <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener">GitHub</a>
             <span>·</span>
-            <a href="https://www.npmjs.com/package/@stukennedy/honi" target="_blank" rel="noopener">npm</a>
+            <a href="https://www.npmjs.com/package/honidev" target="_blank" rel="noopener">npm</a>
           </div>
         </div>
       </footer>
@@ -1341,7 +1344,7 @@ app.get('/', (c) =>
       {/* ── Copy-to-clipboard script ── */}
       <script dangerouslySetInnerHTML={{ __html: `
         document.getElementById('npm-copy').addEventListener('click', function() {
-          navigator.clipboard.writeText('npm install @stukennedy/honi').then(function() {
+          navigator.clipboard.writeText('npm install honidev').then(function() {
             var icon = document.getElementById('copy-icon');
             icon.textContent = '\\u2713';
             setTimeout(function() { icon.innerHTML = '\\u2398'; }, 2000);

@@ -10,7 +10,7 @@ export const GettingStartedPage = () => (
         <span class="code-lang">Shell</span>
       </div>
       <div class="code-body">
-        <div class="line"><span class="ln">$</span><span>npm install @stukennedy/honi</span></div>
+        <div class="line"><span class="ln">$</span><span>npm install honidev</span></div>
       </div>
     </div>
     <p>Or use the CLI to scaffold a full project:</p>
@@ -20,7 +20,7 @@ export const GettingStartedPage = () => (
         <span class="code-lang">Shell</span>
       </div>
       <div class="code-body">
-        <div class="line"><span class="ln">$</span><span>npx @stukennedy/honi new my-agent</span></div>
+        <div class="line"><span class="ln">$</span><span>npx honidev new my-agent</span></div>
       </div>
     </div>
 
@@ -31,7 +31,7 @@ export const GettingStartedPage = () => (
         <span class="code-lang">TypeScript</span>
       </div>
       <div class="code-body">
-        <div class="line"><span class="ln"> 1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span> {'}'} <span class="kw">from</span> <span class="str">'@stukennedy/honi'</span></span></div>
+        <div class="line"><span class="ln"> 1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span> {'}'} <span class="kw">from</span> <span class="str">'honidev'</span></span></div>
         <div class="line"><span class="ln"> 2</span><span></span></div>
         <div class="line"><span class="ln"> 3</span><span><span class="kw">export const</span> <span class="fn">agent</span> <span class="op">=</span> <span class="fn">createAgent</span>({'{'}
         </span></div>

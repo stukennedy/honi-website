@@ -165,7 +165,7 @@ export const CreateAgentPage = () => (
         <span class="code-lang">TypeScript</span>
       </div>
       <div class="code-body">
-        <div class="line"><span class="ln"> 1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span><span class="op">,</span> <span class="fn">tool</span> {'}'} <span class="kw">from</span> <span class="str">'@stukennedy/honi'</span></span></div>
+        <div class="line"><span class="ln"> 1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span><span class="op">,</span> <span class="fn">tool</span> {'}'} <span class="kw">from</span> <span class="str">'honidev'</span></span></div>
         <div class="line"><span class="ln"> 2</span><span><span class="kw">import</span> {'{'} <span class="fn">z</span> {'}'} <span class="kw">from</span> <span class="str">'zod'</span></span></div>
         <div class="line"><span class="ln"> 3</span><span></span></div>
         <div class="line"><span class="ln"> 4</span><span><span class="kw">export const</span> <span class="fn">agent</span> <span class="op">=</span> <span class="fn">createAgent</span>({'{'}
