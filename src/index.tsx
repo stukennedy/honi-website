@@ -7,6 +7,8 @@ import { ToolsPage } from './docs/tools'
 import { MemoryPage } from './docs/memory'
 import { WorkflowsPage } from './docs/workflows'
 import { ObservabilityPage } from './docs/observability'
+import { McpPage } from './docs/mcp'
+import { MultiAgentPage } from './docs/multiagent'
 import { CliPage } from './docs/cli'
 
 const app = new Hono()
@@ -1206,6 +1208,20 @@ app.get('/', (c) =>
               </div>
               <p>Anthropic, OpenAI, Workers AI. Switch model with one string.</p>
             </div>
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
+                <h3>MCP Server</h3>
+              </div>
+              <p>Every agent exposes a <code style="background:rgba(245,158,11,0.1);padding:1px 5px;border-radius:3px;font-size:12px">/mcp</code> endpoint. Connect from Claude Desktop, Cursor, or any MCP client — zero config.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
+                <h3>Multi-Agent</h3>
+              </div>
+              <p>Route messages and call tools across agents via DO stubs. Build orchestrator patterns without leaving Cloudflare's network.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -1262,6 +1278,20 @@ app.get('/', (c) =>
                   <td><span class="cross">&#x2717;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
                   <td><span class="check">&#x2726;</span></td>
+                </tr>
+                <tr>
+                  <td>MCP server built-in</td>
+                  <td><span class="check">&#x2726;</span></td>
+                  <td><span class="cross">&#x2717;</span></td>
+                  <td><span class="cross">&#x2717;</span></td>
+                  <td><span class="cross">&#x2717;</span></td>
+                </tr>
+                <tr>
+                  <td>Multi-agent orchestration</td>
+                  <td><span class="check">&#x2726;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
+                  <td><span class="cross">&#x2717;</span></td>
                 </tr>
                 <tr>
                   <td>Opinionated conventions</td>
@@ -1407,6 +1437,22 @@ app.get('/docs/observability', (c) =>
   c.render(
     <DocsLayout active="/docs/observability">
       <ObservabilityPage />
+    </DocsLayout>
+  )
+)
+
+app.get('/docs/mcp', (c) =>
+  c.render(
+    <DocsLayout active="/docs/mcp">
+      <McpPage />
+    </DocsLayout>
+  )
+)
+
+app.get('/docs/multiagent', (c) =>
+  c.render(
+    <DocsLayout active="/docs/multiagent">
+      <MultiAgentPage />
     </DocsLayout>
   )
 )

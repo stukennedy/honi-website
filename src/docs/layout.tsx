@@ -8,6 +8,9 @@ const navItems = [
   { href: '/docs/memory', label: 'Memory' },
   { href: '/docs/workflows', label: 'Workflows' },
   { href: '/docs/observability', label: 'Observability' },
+  { heading: 'Integrations' },
+  { href: '/docs/mcp', label: 'MCP Server' },
+  { href: '/docs/multiagent', label: 'Multi-Agent' },
   { heading: '' },
   { href: '/docs/cli', label: 'CLI Reference' },
 ] as const
