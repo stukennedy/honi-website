@@ -46,7 +46,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  position: relative;
 }
 
 /* ── Hex tessellation background ── */
@@ -75,7 +74,8 @@ body::after {
 a { color: inherit; text-decoration: none }
 
 /* Everything rendered needs z-index above bg */
-nav, section, footer, .docs-topbar, .docs-shell { position: relative; z-index: 2; }
+nav, section, footer, .docs-topbar { position: relative; z-index: 2; }
+.docs-shell { z-index: 2; }
 
 /* ── Nav ── */
 nav {
@@ -740,20 +740,24 @@ footer::before {
 }
 
 .docs-shell {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  min-height: 100vh;
-  padding-top: 48px;
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 48px);
+  margin-top: 48px;
 }
 
 .docs-sidebar {
+  width: 240px;
+  min-width: 240px;
+  flex-shrink: 0;
   position: sticky;
   top: 48px;
-  height: calc(100vh - 48px);
+  max-height: calc(100vh - 48px);
   overflow-y: auto;
   padding: 24px 20px;
   border-right: 1px solid var(--border);
   background: var(--bg);
+  align-self: flex-start;
 }
 
 .docs-nav {
@@ -825,9 +829,9 @@ footer::before {
 }
 
 .docs-main {
+  flex: 1;
   min-width: 0;
   padding: 48px 56px 80px;
-  max-width: 860px;
 }
 
 .docs-content h1 {
@@ -978,9 +982,6 @@ footer::before {
 
 @media (max-width: 768px) {
   .docs-menu-btn { display: flex; align-items: center; gap: 6px; }
-  .docs-shell {
-    grid-template-columns: 1fr;
-  }
   .docs-sidebar {
     display: none;
     position: fixed;
@@ -989,7 +990,9 @@ footer::before {
     right: 0;
     bottom: 0;
     width: 100%;
+    min-width: 0;
     height: auto;
+    max-height: none;
     z-index: 90;
     background: var(--bg);
     overflow-y: auto;
