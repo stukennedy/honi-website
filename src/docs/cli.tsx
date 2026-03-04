@@ -10,7 +10,7 @@ export const CliPage = () => (
         <span class="code-lang">Shell</span>
       </div>
       <div class="code-body">
-        <div class="line"><span class="ln">$</span><span>npm install -g @stukennedy/honi</span></div>
+        <div class="line"><span class="ln">$</span><span>npm install -g honi-cf</span></div>
       </div>
     </div>
 

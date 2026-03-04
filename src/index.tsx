@@ -923,16 +923,16 @@ footer::before {
 @media (max-width: 768px) {
   .docs-menu-btn { display: block }
   .docs-sidebar {
+    display: none;
     position: fixed;
     top: 48px;
-    left: -260px;
+    left: 0;
     width: 260px;
     z-index: 90;
-    transition: left 0.25s;
     background: var(--bg);
     box-shadow: 4px 0 20px rgba(0,0,0,0.5);
   }
-  .docs-sidebar.open { left: 0 }
+  .docs-sidebar.open { display: block }
   .docs-main {
     margin-left: 0;
     padding: 32px 20px 60px;
