@@ -708,7 +708,7 @@ app.get('/', (c) =>
 
           <div class="install-cmd">
             <span class="dollar">$</span>
-            <span>npm install honi</span>
+            <span>npm install @stukennedy/honi</span>
           </div>
 
           <div class="code-window" style="max-width: 560px; margin: 0 auto; text-align: left">
