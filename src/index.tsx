@@ -346,6 +346,10 @@ nav {
   gap: 16px;
 }
 
+.code-body .line > span:last-child {
+  white-space: pre;
+}
+
 .code-body .ln {
   color: var(--text-muted);
   user-select: none;
