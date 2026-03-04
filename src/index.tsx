@@ -1,5 +1,13 @@
 import { Hono } from 'hono'
 import { jsxRenderer } from 'hono/jsx-renderer'
+import { DocsLayout } from './docs/layout'
+import { GettingStartedPage } from './docs/getting-started'
+import { CreateAgentPage } from './docs/create-agent'
+import { ToolsPage } from './docs/tools'
+import { MemoryPage } from './docs/memory'
+import { WorkflowsPage } from './docs/workflows'
+import { ObservabilityPage } from './docs/observability'
+import { CliPage } from './docs/cli'
 
 const app = new Hono()
 
@@ -473,6 +481,269 @@ footer {
   nav { padding: 0 16px }
   .container { padding: 0 16px }
 }
+
+/* ── Docs Layout ── */
+.docs-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(10,10,10,0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.docs-back {
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.docs-back:hover { color: var(--amber) }
+
+.docs-menu-btn {
+  display: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font);
+}
+
+.docs-shell {
+  display: flex;
+  padding-top: 48px;
+  min-height: 100vh;
+}
+
+.docs-sidebar {
+  position: fixed;
+  top: 48px;
+  left: 0;
+  bottom: 0;
+  width: 240px;
+  overflow-y: auto;
+  padding: 24px 20px;
+  border-right: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.docs-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.docs-nav-heading {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--amber);
+  margin-top: 20px;
+  margin-bottom: 6px;
+  padding-left: 10px;
+}
+
+.docs-nav-spacer {
+  height: 12px;
+}
+
+.docs-nav-link {
+  display: block;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  transition: color 0.15s, background 0.15s;
+}
+.docs-nav-link:hover {
+  color: var(--text);
+  background: var(--bg-card);
+}
+.docs-nav-link.active {
+  color: var(--amber);
+  background: var(--amber-dim);
+}
+
+.docs-main {
+  flex: 1;
+  margin-left: 240px;
+  padding: 48px 56px 80px;
+  max-width: 860px;
+}
+
+.docs-content h1 {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.docs-lead {
+  font-size: 16px;
+  color: #94a3b8;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.docs-content h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: 48px;
+  margin-bottom: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.docs-content h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.docs-content h3 {
+  font-size: 17px;
+  font-weight: 650;
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+.docs-content p {
+  font-size: 15px;
+  color: #94a3b8;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.docs-content code {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--amber);
+  background: rgba(245, 158, 11, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.docs-content .code-window code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.docs-code {
+  max-width: 100%;
+  margin: 0 0 24px;
+}
+
+.docs-content ol,
+.docs-content ul {
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
+
+.docs-list {
+  list-style: decimal;
+  padding-left: 20px;
+  margin-bottom: 24px;
+}
+
+.docs-list li {
+  font-size: 15px;
+  color: #94a3b8;
+  line-height: 1.75;
+  margin-bottom: 6px;
+}
+
+.docs-link {
+  color: var(--amber) !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.docs-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  margin-bottom: 24px;
+}
+
+.docs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.docs-table th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background: #141414;
+}
+
+.docs-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  color: #94a3b8;
+  vertical-align: top;
+}
+
+.docs-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.docs-table td strong {
+  color: var(--text);
+}
+
+.docs-next {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.docs-next a {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--amber);
+  transition: opacity 0.2s;
+}
+.docs-next a:hover { opacity: 0.8 }
+
+@media (max-width: 768px) {
+  .docs-menu-btn { display: block }
+  .docs-sidebar {
+    position: fixed;
+    top: 48px;
+    left: -260px;
+    width: 260px;
+    z-index: 90;
+    transition: left 0.25s;
+    background: var(--bg);
+    box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+  }
+  .docs-sidebar.open { left: 0 }
+  .docs-main {
+    margin-left: 0;
+    padding: 32px 20px 60px;
+  }
+}
 `
 
 const hexSvg = (size: number) => `
@@ -515,7 +786,7 @@ app.get('/', (c) =>
           <span class="wordmark">Honi</span>
         </div>
         <div class="nav-right">
-          <span class="nav-link">Docs</span>
+          <a href="/docs" class="nav-link" style="color: var(--text-secondary); cursor: pointer">Docs</a>
           <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener">
             <button class="nav-btn">GitHub</button>
           </a>
@@ -746,6 +1017,65 @@ app.get('/', (c) =>
         </div>
       </footer>
     </>
+  )
+)
+
+// ── Docs Routes ──
+app.get('/docs', (c) => c.redirect('/docs/getting-started'))
+
+app.get('/docs/getting-started', (c) =>
+  c.render(
+    <DocsLayout active="/docs/getting-started">
+      <GettingStartedPage />
+    </DocsLayout>
+  )
+)
+
+app.get('/docs/create-agent', (c) =>
+  c.render(
+    <DocsLayout active="/docs/create-agent">
+      <CreateAgentPage />
+    </DocsLayout>
+  )
+)
+
+app.get('/docs/tools', (c) =>
+  c.render(
+    <DocsLayout active="/docs/tools">
+      <ToolsPage />
+    </DocsLayout>
+  )
+)
+
+app.get('/docs/memory', (c) =>
+  c.render(
+    <DocsLayout active="/docs/memory">
+      <MemoryPage />
+    </DocsLayout>
+  )
+)
+
+app.get('/docs/workflows', (c) =>
+  c.render(
+    <DocsLayout active="/docs/workflows">
+      <WorkflowsPage />
+    </DocsLayout>
+  )
+)
+
+app.get('/docs/observability', (c) =>
+  c.render(
+    <DocsLayout active="/docs/observability">
+      <ObservabilityPage />
+    </DocsLayout>
+  )
+)
+
+app.get('/docs/cli', (c) =>
+  c.render(
+    <DocsLayout active="/docs/cli">
+      <CliPage />
+    </DocsLayout>
   )
 )
 
