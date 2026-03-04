@@ -239,11 +239,13 @@ nav {
   gap: 8px;
   padding: 14px 32px;
   background: var(--amber);
-  color: #080A0E;
+  color: #080A0E !important;
+  -webkit-text-fill-color: #080A0E;
   font-family: var(--heading);
   font-size: 18px;
   letter-spacing: 0.08em;
   border: none;
+  text-decoration: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s;
@@ -257,11 +259,13 @@ nav {
   gap: 8px;
   padding: 14px 32px;
   background: transparent;
-  color: var(--amber);
+  color: var(--amber) !important;
+  -webkit-text-fill-color: var(--amber);
   font-family: var(--heading);
   font-size: 18px;
   letter-spacing: 0.08em;
   border: 1px solid var(--amber);
+  text-decoration: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
@@ -670,8 +674,8 @@ footer::before {
   section { padding: 60px 0 }
   .punch { padding: 80px 0 }
   .hero { padding: 80px 0 60px }
-  .hero h1 { font-size: clamp(3rem, 12vw, 5rem) }
-  .hero .sub { font-size: 16px }
+  .hero h1 { font-size: clamp(2.5rem, 10vw, 4rem) }
+  .hero .sub { font-size: 15px; line-height: 1.5; word-wrap: break-word; overflow-wrap: break-word; }
   .hero-ctas {
     flex-direction: column;
     align-items: stretch;
@@ -1040,6 +1044,7 @@ app.use(
         <meta name="description" content="Build stateful, streaming AI agents backed by Durable Objects. No server. No Redis. No cold starts. Deploy globally in seconds." />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 93.3,27.5 93.3,72.5 50,95 6.7,72.5 6.7,27.5' fill='%23F59E0B'/%3E%3C/svg%3E" />
         <style dangerouslySetInnerHTML={{ __html: css }} />
       </head>
       <body>{children}</body>
