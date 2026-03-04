@@ -740,15 +740,16 @@ footer::before {
 }
 
 .docs-shell {
-  display: flex;
-  padding-top: 48px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
   min-height: 100vh;
+  padding-top: 48px;
 }
 
 .docs-sidebar {
-  position: fixed;
-  top: 48px; left: 0; bottom: 0;
-  width: 240px;
+  position: sticky;
+  top: 48px;
+  height: calc(100vh - 48px);
   overflow-y: auto;
   padding: 24px 20px;
   border-right: 1px solid var(--border);
@@ -824,8 +825,7 @@ footer::before {
 }
 
 .docs-main {
-  flex: 1;
-  margin-left: 240px;
+  min-width: 0;
   padding: 48px 56px 80px;
   max-width: 860px;
 }
@@ -978,6 +978,9 @@ footer::before {
 
 @media (max-width: 768px) {
   .docs-menu-btn { display: flex; align-items: center; gap: 6px; }
+  .docs-shell {
+    grid-template-columns: 1fr;
+  }
   .docs-sidebar {
     display: none;
     position: fixed;
@@ -986,10 +989,12 @@ footer::before {
     right: 0;
     bottom: 0;
     width: 100%;
+    height: auto;
     z-index: 90;
     background: var(--bg);
     overflow-y: auto;
     padding: 24px 28px 80px;
+    border-right: none;
   }
   .docs-sidebar.open { display: block }
   .docs-sidebar-header { display: flex }
