@@ -75,7 +75,7 @@ a { color: inherit; text-decoration: none }
 
 /* Everything rendered needs z-index above bg */
 nav, section, footer, .docs-topbar { position: relative; z-index: 2; }
-.docs-shell { z-index: 2; }
+.docs-shell { position: relative; z-index: 2; display: flex; align-items: flex-start; }
 
 /* ── Nav ── */
 nav {
@@ -740,8 +740,6 @@ footer::before {
 }
 
 .docs-shell {
-  display: flex;
-  align-items: flex-start;
   min-height: calc(100vh - 48px);
   margin-top: 48px;
 }
