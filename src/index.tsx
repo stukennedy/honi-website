@@ -11,27 +11,29 @@ import { CliPage } from './docs/cli'
 
 const app = new Hono()
 
+// ── Crystalline Amber CSS ──
 const css = `
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root {
-  --bg: #0A0A0A;
-  --bg-card: #111111;
-  --bg-code: #1a1a1a;
-  --border: #1f1f1f;
-  --border-subtle: #181818;
-  --text: #EDEDED;
-  --text-secondary: #888888;
-  --text-muted: #555555;
+  --bg: #080A0E;
+  --surface: #0F1219;
+  --border: #1E2433;
   --amber: #F59E0B;
-  --amber-dim: rgba(245, 158, 11, 0.15);
-  --amber-glow: rgba(245, 158, 11, 0.06);
-  --orange: #EA580C;
+  --amber-bright: #FCD34D;
+  --amber-dim: #92400E;
+  --text: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #475569;
   --blue: #60A5FA;
   --purple: #A78BFA;
   --green: #34D399;
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+  --heading: 'Bebas Neue', sans-serif;
+  --ui: 'DM Mono', monospace;
+  --body: 'DM Sans', sans-serif;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 html { scroll-behavior: smooth }
@@ -39,212 +41,282 @@ html { scroll-behavior: smooth }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font);
+  font-family: var(--body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* ── Hex tessellation background ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92.376'%3E%3Cpath d='M40 0 L80 23.094 L80 69.282 L40 92.376 L0 69.282 L0 23.094 Z' fill='none' stroke='%231E2433' stroke-width='0.5' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: 80px 92.376px;
+}
+
+/* ── Grain overlay ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
 }
 
 a { color: inherit; text-decoration: none }
 
+/* Everything rendered needs z-index above bg */
+nav, section, footer, .docs-topbar, .docs-shell { position: relative; z-index: 2; }
+
 /* ── Nav ── */
 nav {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 0 24px;
+  padding: 0 32px;
   height: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(10,10,10,0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(8,10,14,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
 
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.nav-left .wordmark {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.nav-wordmark {
+  font-family: var(--heading);
+  font-size: 24px;
+  letter-spacing: 0.15em;
+  color: var(--text);
 }
 
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 28px;
 }
 
 .nav-link {
-  font-size: 14px;
-  color: var(--text-muted);
-  cursor: default;
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.2s;
 }
+.nav-link:hover { color: var(--amber) }
 
-.nav-btn {
-  font-size: 14px;
-  font-weight: 500;
+.npm-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   padding: 8px 16px;
   border-radius: 8px;
   border: 1px solid var(--amber);
-  color: var(--amber);
   background: transparent;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--amber);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
-  font-family: var(--font);
+  line-height: 1;
 }
-
-.nav-btn:hover {
-  background: var(--amber);
-  color: var(--bg);
+.npm-pill:hover {
+  background: rgba(245,158,11,0.1);
+}
+.npm-pill .copy-icon {
+  font-size: 14px;
+  opacity: 0.7;
 }
 
 /* ── Container ── */
 .container {
-  max-width: 1120px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 32px;
 }
 
 /* ── Hero ── */
 .hero {
   position: relative;
-  padding: 160px 0 100px;
-  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 0 80px;
   overflow: hidden;
 }
 
 .hero::before {
   content: '';
   position: absolute;
-  top: -20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%);
+  top: 10%;
+  right: 20%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 65%);
   pointer-events: none;
+  z-index: 0;
 }
 
-.badge {
-  display: inline-flex;
+.hero-grid {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 48px;
   align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 32px;
+  width: 100%;
 }
 
-.badge a {
+.hero-left {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-label {
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--amber);
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  margin-bottom: 24px;
 }
 
 .hero h1 {
-  font-size: clamp(40px, 6vw, 72px);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  margin-bottom: 24px;
-  position: relative;
+  font-family: var(--heading);
+  font-size: clamp(4rem, 10vw, 9rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  margin-bottom: 32px;
+  color: var(--text);
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, var(--amber) 0%, var(--orange) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.hero-rule {
+  width: 120px;
+  height: 2px;
+  background: var(--amber);
+  border: none;
+  margin-bottom: 28px;
 }
 
 .hero .sub {
+  font-family: var(--body);
   font-size: 18px;
   line-height: 1.7;
   color: var(--text-secondary);
-  max-width: 560px;
-  margin: 0 auto 40px;
+  max-width: 480px;
+  margin-bottom: 40px;
 }
 
-.ctas {
+.hero-ctas {
   display: flex;
   gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
 }
 
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 12px 28px;
-  border-radius: 10px;
+  gap: 8px;
+  padding: 14px 32px;
   background: var(--amber);
-  color: #000;
-  font-weight: 600;
-  font-size: 15px;
+  color: #080A0E;
+  font-family: var(--heading);
+  font-size: 18px;
+  letter-spacing: 0.08em;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
-  font-family: var(--font);
-  transition: opacity 0.2s;
+  transition: background 0.2s;
+  text-decoration: none;
 }
-.btn-primary:hover { opacity: 0.9 }
+.btn-primary:hover { background: var(--amber-bright) }
 
-.btn-secondary {
+.btn-ghost {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 12px 28px;
-  border-radius: 10px;
+  gap: 8px;
+  padding: 14px 32px;
   background: transparent;
-  color: var(--text);
-  font-weight: 500;
-  font-size: 15px;
-  border: 1px solid var(--border);
+  color: var(--amber);
+  font-family: var(--heading);
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--amber);
+  border-radius: 4px;
   cursor: pointer;
-  font-family: var(--font);
-  transition: border-color 0.2s;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
 }
-.btn-secondary:hover { border-color: var(--text-muted) }
+.btn-ghost:hover {
+  background: rgba(245,158,11,0.1);
+}
 
-/* ── Code Block ── */
-.code-window {
-  max-width: 640px;
-  margin: 0 auto;
+.hero-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.hero-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.hex-bullet {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+}
+
+/* ── Hero code block ── */
+.hero-right {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-code {
+  transform: rotate(-1.5deg);
   border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--bg-code);
+  border-left: 3px solid var(--amber);
+  background: #0A0C10;
+  box-shadow: 0 0 60px rgba(245,158,11,0.15), 0 20px 60px rgba(0,0,0,0.4);
   overflow: hidden;
-  text-align: left;
 }
 
 .code-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 12px 20px;
   border-bottom: 1px solid var(--border);
-  background: #141414;
+  background: rgba(15,18,25,0.8);
 }
 
 .code-dots {
   display: flex;
   gap: 6px;
 }
-
 .code-dots span {
   width: 10px;
   height: 10px;
@@ -253,18 +325,18 @@ nav {
 }
 
 .code-lang {
+  font-family: var(--ui);
   font-size: 11px;
   color: var(--text-muted);
-  font-family: var(--mono);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .code-body {
-  padding: 20px;
+  padding: 24px;
   font-family: var(--mono);
   font-size: 13.5px;
-  line-height: 1.7;
+  line-height: 1.75;
   overflow-x: auto;
   color: var(--text);
 }
@@ -282,33 +354,87 @@ nav {
   opacity: 0.5;
 }
 
-.kw { color: var(--purple) }
+.kw { color: var(--blue) }
 .fn { color: var(--blue) }
 .str { color: var(--amber) }
 .cm { color: var(--text-muted); font-style: italic }
 .pr { color: var(--text-secondary) }
 .op { color: var(--text-secondary) }
-.ty { color: var(--green) }
+.ty { color: var(--purple) }
 
-/* ── Sections ── */
-section {
-  padding: 100px 0;
+/* ── Code window (reusable) ── */
+.code-window {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #0A0C10;
+  overflow: hidden;
+  text-align: left;
 }
 
+/* ── Sections ── */
+section { padding: 100px 0 }
+
 .section-label {
-  font-size: 13px;
-  font-weight: 600;
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
   color: var(--amber);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .section-title {
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--heading);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: 0.02em;
   margin-bottom: 56px;
+}
+
+/* ── Punch Section ── */
+.punch {
+  text-align: center;
+  padding: 140px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.punch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92.376'%3E%3Cpath d='M40 0 L80 23.094 L80 69.282 L40 92.376 L0 69.282 L0 23.094 Z' fill='none' stroke='%231E2433' stroke-width='0.5' opacity='0.7'/%3E%3C/svg%3E");
+  background-size: 80px 92.376px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.punch .container { position: relative; z-index: 1; }
+
+.punch h2 {
+  font-family: var(--heading);
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  margin-bottom: 28px;
+}
+
+.punch h2 .line-white { color: var(--text) }
+.punch h2 .line-amber { color: var(--amber) }
+
+.punch-rule {
+  width: 200px;
+  height: 2px;
+  background: var(--amber);
+  border: none;
+  margin: 28px auto 0;
+}
+
+.punch p {
+  font-family: var(--body);
+  font-size: 18px;
+  color: var(--text-secondary);
 }
 
 /* ── Feature Grid ── */
@@ -320,74 +446,57 @@ section {
 
 .feature-card {
   padding: 32px 28px;
-  border-radius: 14px;
+  background: var(--surface);
   border: 1px solid var(--border);
-  background: var(--bg-card);
-  transition: border-color 0.25s, box-shadow 0.25s;
+  border-radius: 4px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .feature-card:hover {
-  border-color: rgba(245, 158, 11, 0.25);
-  box-shadow: 0 0 40px rgba(245, 158, 11, 0.04);
+  border-color: var(--amber);
+  box-shadow: 0 0 30px rgba(245,158,11,0.08);
 }
 
-.feature-icon {
-  font-size: 28px;
-  margin-bottom: 16px;
-  display: block;
+.feature-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
 .feature-card h3 {
-  font-size: 17px;
-  font-weight: 650;
-  margin-bottom: 10px;
-  letter-spacing: -0.01em;
+  font-family: var(--ui);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
 }
 
 .feature-card p {
+  font-family: var(--body);
   font-size: 14px;
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--text-secondary);
 }
 
-/* ── Punch ── */
-.punch {
-  text-align: center;
-  padding: 120px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.punch h2 {
-  font-size: clamp(28px, 4.5vw, 48px);
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-  margin-bottom: 20px;
-}
-
-.punch p {
-  font-size: 17px;
-  color: var(--text-secondary);
-}
-
-/* ── Table ── */
+/* ── Comparison Table ── */
 .table-wrap {
   overflow-x: auto;
-  border-radius: 14px;
+  border-radius: 4px;
   border: 1px solid var(--border);
-  background: var(--bg-card);
+  background: var(--surface);
 }
 
 .compare-table {
   width: 100%;
   border-collapse: collapse;
+  font-family: var(--body);
   font-size: 14px;
 }
 
 .compare-table th,
 .compare-table td {
-  padding: 14px 20px;
+  padding: 16px 24px;
   text-align: center;
   border-bottom: 1px solid var(--border);
 }
@@ -400,52 +509,109 @@ section {
 }
 
 .compare-table thead th {
-  font-weight: 650;
-  font-size: 14px;
-  padding: 18px 20px;
-  border-bottom: 1px solid var(--border);
+  font-family: var(--ui);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 18px 24px;
+  background: var(--amber);
+  color: #080A0E;
+  border-bottom: none;
 }
 
-.compare-table thead th:nth-child(2) {
-  color: var(--amber);
+.compare-table thead th:first-child {
+  color: #080A0E;
 }
 
 .compare-table tbody tr:last-child td {
   border-bottom: none;
 }
 
-.check { color: var(--green); font-weight: 700 }
-.cross { color: var(--text-muted) }
+.compare-table tbody tr {
+  transition: background 0.15s;
+}
+.compare-table tbody tr:hover {
+  background: #141824;
+}
+
+.check { color: var(--amber); }
+.cross { color: var(--text-muted); }
 
 /* ── Quick Start ── */
-.quickstart {
-  text-align: center;
+.quickstart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
 }
 
-.install-cmd {
+.qs-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.qs-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.qs-num {
+  font-family: var(--heading);
+  font-size: 36px;
+  color: var(--amber);
+  line-height: 1;
+  min-width: 36px;
+}
+
+.qs-step-content h4 {
+  font-family: var(--ui);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.qs-step-content p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.qs-step-content .qs-cmd {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 24px;
-  border-radius: 10px;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  background: #0A0C10;
   border: 1px solid var(--border);
-  background: var(--bg-code);
   font-family: var(--mono);
-  font-size: 15px;
-  color: var(--text);
-  margin-bottom: 40px;
+  font-size: 13px;
+  color: var(--amber);
+  margin-top: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s;
 }
-
-.install-cmd .dollar {
-  color: var(--text-muted);
-  user-select: none;
-}
+.qs-step-content .qs-cmd:hover { border-color: var(--amber) }
 
 /* ── Footer ── */
 footer {
   padding: 48px 0;
   border-top: 1px solid var(--border);
-  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='92.376'%3E%3Cpath d='M40 0 L80 23.094 L80 69.282 L40 92.376 L0 69.282 L0 23.094 Z' fill='none' stroke='%231E2433' stroke-width='0.5' opacity='0.25'/%3E%3C/svg%3E");
+  background-size: 80px 92.376px;
+  pointer-events: none;
 }
 
 .footer-inner {
@@ -454,70 +620,93 @@ footer {
   justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
-  font-size: 13px;
+  font-family: var(--ui);
+  font-size: 12px;
   color: var(--text-muted);
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-wordmark {
+  font-family: var(--heading);
+  font-size: 18px;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
 }
 
 .footer-inner a {
   color: var(--text-secondary);
   transition: color 0.2s;
 }
-
 .footer-inner a:hover { color: var(--amber) }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
-  .feature-grid {
+@media (max-width: 900px) {
+  .hero-grid {
     grid-template-columns: 1fr;
+    gap: 48px;
   }
-  .hero h1 { font-size: 36px }
-  .punch h2 { font-size: 28px }
+  .hero { min-height: auto; padding: 140px 0 80px }
+  .hero-code { transform: none }
+  .hero h1 { font-size: clamp(3.5rem, 12vw, 6rem) }
+  .quickstart-grid { grid-template-columns: 1fr }
+}
+
+@media (max-width: 768px) {
+  .feature-grid { grid-template-columns: 1fr }
+  nav { padding: 0 16px }
+  .container { padding: 0 16px }
+  .hero-stats { flex-wrap: wrap; gap: 16px }
   .compare-table { font-size: 12px }
-  .compare-table th, .compare-table td { padding: 10px 12px }
+  .compare-table th, .compare-table td { padding: 10px 14px }
+  .npm-pill { display: none }
 }
 
 @media (max-width: 480px) {
-  .ctas { flex-direction: column; align-items: center }
-  nav { padding: 0 16px }
-  .container { padding: 0 16px }
+  .hero-ctas { flex-direction: column; align-items: flex-start }
+  .hero h1 { font-size: 3rem }
+  .punch h2 { font-size: 2.2rem }
+  .nav-right { gap: 16px }
 }
 
 /* ── Docs Layout ── */
 .docs-topbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 100;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  background: rgba(10,10,10,0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(8,10,14,0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
 
 .docs-back {
-  font-size: 13px;
+  font-family: var(--ui);
+  font-size: 12px;
   color: var(--text-secondary);
+  letter-spacing: 0.05em;
   transition: color 0.2s;
 }
 .docs-back:hover { color: var(--amber) }
 
 .docs-menu-btn {
   display: none;
-  font-size: 13px;
+  font-family: var(--ui);
+  font-size: 12px;
   font-weight: 500;
   padding: 4px 12px;
-  border-radius: 6px;
+  border-radius: 4px;
   border: 1px solid var(--border);
-  background: var(--bg-card);
+  background: var(--surface);
   color: var(--text-secondary);
   cursor: pointer;
-  font-family: var(--font);
+  letter-spacing: 0.05em;
 }
 
 .docs-shell {
@@ -528,9 +717,7 @@ footer {
 
 .docs-sidebar {
   position: fixed;
-  top: 48px;
-  left: 0;
-  bottom: 0;
+  top: 48px; left: 0; bottom: 0;
   width: 240px;
   overflow-y: auto;
   padding: 24px 20px;
@@ -545,35 +732,35 @@ footer {
 }
 
 .docs-nav-heading {
+  font-family: var(--ui);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--amber);
   margin-top: 20px;
   margin-bottom: 6px;
   padding-left: 10px;
 }
 
-.docs-nav-spacer {
-  height: 12px;
-}
+.docs-nav-spacer { height: 12px }
 
 .docs-nav-link {
   display: block;
+  font-family: var(--body);
   font-size: 13px;
   padding: 6px 10px;
-  border-radius: 6px;
+  border-radius: 4px;
   color: var(--text-secondary);
   transition: color 0.15s, background 0.15s;
 }
 .docs-nav-link:hover {
   color: var(--text);
-  background: var(--bg-card);
+  background: var(--surface);
 }
 .docs-nav-link.active {
   color: var(--amber);
-  background: var(--amber-dim);
+  background: rgba(245,158,11,0.1);
 }
 
 .docs-main {
@@ -584,23 +771,23 @@ footer {
 }
 
 .docs-content h1 {
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: var(--heading);
+  font-size: 42px;
+  letter-spacing: 0.02em;
   margin-bottom: 12px;
 }
 
 .docs-lead {
   font-size: 16px;
-  color: #94a3b8;
+  color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 40px;
 }
 
 .docs-content h2 {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-family: var(--heading);
+  font-size: 28px;
+  letter-spacing: 0.02em;
   margin-top: 48px;
   margin-bottom: 16px;
   padding-top: 24px;
@@ -613,6 +800,7 @@ footer {
 }
 
 .docs-content h3 {
+  font-family: var(--body);
   font-size: 17px;
   font-weight: 650;
   margin-top: 32px;
@@ -621,7 +809,7 @@ footer {
 
 .docs-content p {
   font-size: 15px;
-  color: #94a3b8;
+  color: var(--text-secondary);
   line-height: 1.75;
   margin-bottom: 16px;
 }
@@ -660,7 +848,7 @@ footer {
 
 .docs-list li {
   font-size: 15px;
-  color: #94a3b8;
+  color: var(--text-secondary);
   line-height: 1.75;
   margin-bottom: 6px;
 }
@@ -673,9 +861,9 @@ footer {
 
 .docs-table-wrap {
   overflow-x: auto;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 1px solid var(--border);
-  background: var(--bg-card);
+  background: var(--surface);
   margin-bottom: 24px;
 }
 
@@ -687,20 +875,21 @@ footer {
 
 .docs-table th {
   text-align: left;
-  font-weight: 600;
+  font-family: var(--ui);
+  font-weight: 500;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-secondary);
   padding: 12px 16px;
   border-bottom: 1px solid var(--border);
-  background: #141414;
+  background: rgba(15,18,25,0.8);
 }
 
 .docs-table td {
   padding: 10px 16px;
   border-bottom: 1px solid var(--border);
-  color: #94a3b8;
+  color: var(--text-secondary);
   vertical-align: top;
 }
 
@@ -719,9 +908,10 @@ footer {
 }
 
 .docs-next a {
-  font-size: 15px;
-  font-weight: 600;
+  font-family: var(--ui);
+  font-size: 14px;
   color: var(--amber);
+  letter-spacing: 0.05em;
   transition: opacity 0.2s;
 }
 .docs-next a:hover { opacity: 0.8 }
@@ -746,16 +936,20 @@ footer {
 }
 `
 
-const hexSvg = (size: number) => `
+// ── Inline hex SVG ──
+const hexSvg = (size: number, color = '#F59E0B') => `
 <svg width="${size}" height="${size}" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="glow">
-      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#F59E0B" flood-opacity="0.5"/>
-    </filter>
-  </defs>
-  <polygon points="20,2 36.66,11 36.66,29 20,38 3.34,29 3.34,11" fill="#F59E0B" filter="url(#glow)"/>
+  <polygon points="20,2 36.66,11 36.66,29 20,38 3.34,29 3.34,11" fill="${color}" opacity="0.9"/>
 </svg>
 `
+
+const hexIcon = (size: number) => `
+<svg width="${size}" height="${size}" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="20,4 34,12 34,28 20,36 6,28 6,12" fill="none" stroke="#F59E0B" stroke-width="2"/>
+</svg>
+`
+
+const smallHex = `<svg width="8" height="9" viewBox="0 0 8 9" fill="#F59E0B" xmlns="http://www.w3.org/2000/svg"><polygon points="4,0.5 7.5,2.5 7.5,6.5 4,8.5 0.5,6.5 0.5,2.5"/></svg>`
 
 app.use(
   '*',
@@ -768,7 +962,6 @@ app.use(
         <meta name="description" content="Build stateful, streaming AI agents backed by Durable Objects. No server. No Redis. No cold starts. Deploy globally in seconds." />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
         <style dangerouslySetInnerHTML={{ __html: css }} />
       </head>
       <body>{children}</body>
@@ -781,127 +974,148 @@ app.get('/', (c) =>
     <>
       {/* ── Nav ── */}
       <nav>
-        <div class="nav-left">
+        <a href="/" class="nav-left">
           <span dangerouslySetInnerHTML={{ __html: hexSvg(28) }} />
-          <span class="wordmark">Honi</span>
-        </div>
+          <span class="nav-wordmark">HONI</span>
+        </a>
         <div class="nav-right">
-          <a href="/docs" class="nav-link" style="color: var(--text-secondary); cursor: pointer">Docs</a>
-          <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener">
-            <button class="nav-btn">GitHub</button>
-          </a>
+          <a href="/docs" class="nav-link">Docs</a>
+          <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener" class="nav-link">GitHub</a>
+          <button class="npm-pill" id="npm-copy" type="button">
+            <span>npm install @stukennedy/honi</span>
+            <span class="copy-icon" id="copy-icon">&#x2398;</span>
+          </button>
         </div>
       </nav>
 
       {/* ── Hero ── */}
       <section class="hero">
         <div class="container">
-          <div class="badge">
-            <span>&#x1F6A7; Early Development</span>
-            <span>·</span>
-            <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener">Star on GitHub</a>
-          </div>
+          <div class="hero-grid">
+            <div class="hero-left">
+              <div class="hero-label">Cloudflare Workers &times; Durable Objects</div>
+              <h1>
+                EDGE-FIRST<br />AI AGENTS
+              </h1>
+              <hr class="hero-rule" />
+              <p class="sub">
+                Build stateful, streaming agents backed by Durable Objects. No server. No Redis. No cold starts.
+              </p>
+              <div class="hero-ctas">
+                <a href="/docs/getting-started" class="btn-primary">GET STARTED &rarr;</a>
+                <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener" class="btn-ghost">GITHUB &nearr;</a>
+              </div>
+              <div class="hero-stats">
+                <div class="hero-stat">
+                  <span dangerouslySetInnerHTML={{ __html: smallHex }} />
+                  <span>5 PHASES</span>
+                </div>
+                <div class="hero-stat">
+                  <span dangerouslySetInnerHTML={{ __html: smallHex }} />
+                  <span>3 MEMORY TIERS</span>
+                </div>
+                <div class="hero-stat">
+                  <span dangerouslySetInnerHTML={{ __html: smallHex }} />
+                  <span>EDGE-NATIVE</span>
+                </div>
+              </div>
+            </div>
 
-          <h1>
-            Edge-first <span class="gradient-text">AI agents</span>
-            <br />
-            for Cloudflare Workers
-          </h1>
-
-          <p class="sub">
-            Build stateful, streaming agents backed by Durable Objects.
-            <br />
-            No server. No Redis. No cold starts. Deploy globally in seconds.
-          </p>
-
-          <div class="ctas">
-            <a href="https://github.com/stukennedy/honi#quick-start" target="_blank" rel="noopener">
-              <button class="btn-primary">Get Started &#x2192;</button>
-            </a>
-            <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener">
-              <button class="btn-secondary">View on GitHub &#x2192;</button>
-            </a>
-          </div>
-
-          <div class="code-window">
-            <div class="code-header">
-              <div class="code-dots"><span /><span /><span /></div>
-              <span class="code-lang">TypeScript</span>
-            </div>
-            <div class="code-body">
-              <div class="line"><span class="ln">1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span> {'}'} <span class="kw">from</span> <span class="str">'honi'</span></span></div>
-              <div class="line"><span class="ln">2</span><span></span></div>
-              <div class="line"><span class="ln">3</span><span><span class="kw">export const</span> <span class="fn">agent</span> <span class="op">=</span> <span class="fn">createAgent</span>({'{'}
-              </span></div>
-              <div class="line"><span class="ln">4</span><span>  <span class="pr">name</span><span class="op">:</span> <span class="str">'support-bot'</span><span class="op">,</span></span></div>
-              <div class="line"><span class="ln">5</span><span>  <span class="pr">model</span><span class="op">:</span> <span class="str">'claude-sonnet-4-20250514'</span><span class="op">,</span></span></div>
-              <div class="line"><span class="ln">6</span><span>  <span class="pr">memory</span><span class="op">:</span> <span class="str">'tiered'</span><span class="op">,</span>  <span class="cm">{'// DO + D1 + Vectorize'}</span></span></div>
-              <div class="line"><span class="ln">7</span><span></span></div>
-              <div class="line"><span class="ln">8</span><span>  <span class="fn">tools</span><span class="op">:</span> {'{'}</span></div>
-              <div class="line"><span class="ln">9</span><span>    <span class="fn">lookupOrder</span><span class="op">:</span> {'{'}</span></div>
-              <div class="line"><span class="ln">10</span><span>      <span class="pr">description</span><span class="op">:</span> <span class="str">'Look up a customer order'</span><span class="op">,</span></span></div>
-              <div class="line"><span class="ln">11</span><span>      <span class="pr">input</span><span class="op">:</span> <span class="fn">z</span>.<span class="fn">object</span>({'{'} <span class="pr">orderId</span><span class="op">:</span> <span class="fn">z</span>.<span class="fn">string</span>() {'}'})<span class="op">,</span></span></div>
-              <div class="line"><span class="ln">12</span><span>      <span class="kw">async</span> <span class="fn">run</span>({'{'} <span class="pr">orderId</span> {'}'}) {'{'}</span></div>
-              <div class="line"><span class="ln">13</span><span>        <span class="kw">return</span> <span class="fn">db</span>.<span class="fn">query</span>(<span class="str">`SELECT * FROM orders WHERE id = ?`</span><span class="op">,</span> <span class="pr">orderId</span>)</span></div>
-              <div class="line"><span class="ln">14</span><span>      {'}'}</span></div>
-              <div class="line"><span class="ln">15</span><span>    {'}'}</span></div>
-              <div class="line"><span class="ln">16</span><span>  {'}'}</span></div>
-              <div class="line"><span class="ln">17</span><span>{'}'})</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Why Honi ── */}
-      <section>
-        <div class="container">
-          <p class="section-label">Why Honi</p>
-          <h2 class="section-title">Built different for the edge</h2>
-
-          <div class="feature-grid">
-            <div class="feature-card">
-              <span class="feature-icon">&#x2B21;</span>
-              <h3>DO-Backed State</h3>
-              <p>Every agent is a Durable Object. Persistent state, zero cold starts, global by default.</p>
-            </div>
-            <div class="feature-card">
-              <span class="feature-icon">&#x26A1;</span>
-              <h3>True Edge Deployment</h3>
-              <p>Not "edge-compatible". Built from scratch to run on Cloudflare Workers.</p>
-            </div>
-            <div class="feature-card">
-              <span class="feature-icon">&#x1F9E0;</span>
-              <h3>Tiered Memory</h3>
-              <p>Working (DO), Episodic (D1), Semantic (Vectorize). Wired up out of the box.</p>
-            </div>
-            <div class="feature-card">
-              <span class="feature-icon">&#x1F527;</span>
-              <h3>Type-safe Tools</h3>
-              <p>Zod schemas, auto-generated JSON for LLM tool calling. Full TypeScript inference.</p>
-            </div>
-            <div class="feature-card">
-              <span class="feature-icon">&#x1F504;</span>
-              <h3>Durable Workflows</h3>
-              <p>Multi-step pipelines via CF Workflows. Checkpointed retries built in.</p>
-            </div>
-            <div class="feature-card">
-              <span class="feature-icon">&#x1F50C;</span>
-              <h3>Any LLM</h3>
-              <p>Anthropic, OpenAI, Workers AI. Switch model with one string.</p>
+            <div class="hero-right">
+              <div class="hero-code">
+                <div class="code-header">
+                  <div class="code-dots"><span /><span /><span /></div>
+                  <span class="code-lang">TypeScript</span>
+                </div>
+                <div class="code-body">
+                  <div class="line"><span class="ln">1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span> {'}'} <span class="kw">from</span> <span class="str">'honi'</span></span></div>
+                  <div class="line"><span class="ln">2</span><span></span></div>
+                  <div class="line"><span class="ln">3</span><span><span class="kw">export const</span> <span class="fn">agent</span> <span class="op">=</span> <span class="fn">createAgent</span>({'{'}
+                  </span></div>
+                  <div class="line"><span class="ln">4</span><span>  <span class="pr">name</span><span class="op">:</span> <span class="str">'support-bot'</span><span class="op">,</span></span></div>
+                  <div class="line"><span class="ln">5</span><span>  <span class="pr">model</span><span class="op">:</span> <span class="str">'claude-sonnet-4-20250514'</span><span class="op">,</span></span></div>
+                  <div class="line"><span class="ln">6</span><span>  <span class="pr">memory</span><span class="op">:</span> <span class="str">'tiered'</span><span class="op">,</span>  <span class="cm">{'// DO + D1 + Vectorize'}</span></span></div>
+                  <div class="line"><span class="ln">7</span><span></span></div>
+                  <div class="line"><span class="ln">8</span><span>  <span class="fn">tools</span><span class="op">:</span> {'{'}</span></div>
+                  <div class="line"><span class="ln">9</span><span>    <span class="fn">lookupOrder</span><span class="op">:</span> {'{'}</span></div>
+                  <div class="line"><span class="ln">10</span><span>      <span class="pr">description</span><span class="op">:</span> <span class="str">'Look up a customer order'</span><span class="op">,</span></span></div>
+                  <div class="line"><span class="ln">11</span><span>      <span class="pr">input</span><span class="op">:</span> <span class="fn">z</span>.<span class="fn">object</span>({'{'} <span class="pr">orderId</span><span class="op">:</span> <span class="fn">z</span>.<span class="fn">string</span>() {'}'})<span class="op">,</span></span></div>
+                  <div class="line"><span class="ln">12</span><span>      <span class="kw">async</span> <span class="fn">run</span>({'{'} <span class="pr">orderId</span> {'}'}) {'{'}</span></div>
+                  <div class="line"><span class="ln">13</span><span>        <span class="kw">return</span> <span class="fn">db</span>.<span class="fn">query</span>(<span class="str">`SELECT * FROM orders WHERE id = ?`</span><span class="op">,</span> <span class="pr">orderId</span>)</span></div>
+                  <div class="line"><span class="ln">14</span><span>      {'}'}</span></div>
+                  <div class="line"><span class="ln">15</span><span>    {'}'}</span></div>
+                  <div class="line"><span class="ln">16</span><span>  {'}'}</span></div>
+                  <div class="line"><span class="ln">17</span><span>{'}'})</span></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Punch ── */}
+      {/* ── Punch Line ── */}
       <section class="punch">
         <div class="container">
           <h2>
-            Mastra is great.
-            <br />
-            It just doesn't run on the edge.
+            <span class="line-white">MASTRA IS GREAT.</span><br />
+            <span class="line-amber">IT JUST DOESN'T</span><br />
+            <span class="line-white">RUN ON THE EDGE.</span>
           </h2>
           <p>Honi is built for the infrastructure you actually deploy on.</p>
+          <hr class="punch-rule" />
+        </div>
+      </section>
+
+      {/* ── Features ── */}
+      <section>
+        <div class="container">
+          <p class="section-label">Why Honi</p>
+          <h2 class="section-title">BUILT DIFFERENT FOR THE EDGE</h2>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
+                <h3>DO-Backed State</h3>
+              </div>
+              <p>Every agent is a Durable Object. Persistent state, zero cold starts, global by default.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
+                <h3>True Edge</h3>
+              </div>
+              <p>Not "edge-compatible". Built from scratch to run on Cloudflare Workers.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
+                <h3>Tiered Memory</h3>
+              </div>
+              <p>Working (DO), Episodic (D1), Semantic (Vectorize). Wired up out of the box.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
+                <h3>Type-safe Tools</h3>
+              </div>
+              <p>Zod schemas, auto-generated JSON for LLM tool calling. Full TypeScript inference.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
+                <h3>Workflows</h3>
+              </div>
+              <p>Multi-step pipelines via CF Workflows. Checkpointed retries built in.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
+                <h3>Any LLM</h3>
+              </div>
+              <p>Anthropic, OpenAI, Workers AI. Switch model with one string.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -909,7 +1123,7 @@ app.get('/', (c) =>
       <section>
         <div class="container">
           <p class="section-label">Comparison</p>
-          <h2 class="section-title">How Honi stacks up</h2>
+          <h2 class="section-title">HOW HONI STACKS UP</h2>
 
           <div class="table-wrap">
             <table class="compare-table">
@@ -925,43 +1139,43 @@ app.get('/', (c) =>
               <tbody>
                 <tr>
                   <td>CF Workers native</td>
-                  <td><span class="check">&#x2713;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
-                  <td><span class="check">&#x2713;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
                 </tr>
                 <tr>
                   <td>DO-backed state</td>
-                  <td><span class="check">&#x2713;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
-                  <td><span class="check">&#x2713;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
                 </tr>
                 <tr>
                   <td>Built-in memory</td>
-                  <td><span class="check">&#x2713;</span></td>
-                  <td><span class="check">&#x2713;</span></td>
-                  <td><span class="check">&#x2713;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
                 </tr>
                 <tr>
                   <td>TypeScript-first</td>
-                  <td><span class="check">&#x2713;</span></td>
-                  <td><span class="check">&#x2713;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
-                  <td><span class="check">&#x2713;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
                 </tr>
                 <tr>
                   <td>Edge distribution</td>
-                  <td><span class="check">&#x2713;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
-                  <td><span class="check">&#x2713;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
                 </tr>
                 <tr>
                   <td>Opinionated conventions</td>
-                  <td><span class="check">&#x2713;</span></td>
-                  <td><span class="check">&#x2713;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
+                  <td><span class="check">&#x2726;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
                 </tr>
@@ -972,30 +1186,54 @@ app.get('/', (c) =>
       </section>
 
       {/* ── Quick Start ── */}
-      <section class="quickstart">
+      <section>
         <div class="container">
           <p class="section-label">Quick Start</p>
-          <h2 class="section-title">Up and running in seconds</h2>
+          <h2 class="section-title">UP AND RUNNING IN SECONDS</h2>
 
-          <div class="install-cmd">
-            <span class="dollar">$</span>
-            <span>npm install @stukennedy/honi</span>
-          </div>
-
-          <div class="code-window" style="max-width: 560px; margin: 0 auto; text-align: left">
-            <div class="code-header">
-              <div class="code-dots"><span /><span /><span /></div>
-              <span class="code-lang">TypeScript</span>
+          <div class="quickstart-grid">
+            <div class="qs-steps">
+              <div class="qs-step">
+                <span class="qs-num">1</span>
+                <div class="qs-step-content">
+                  <h4>Install</h4>
+                  <div class="qs-cmd" onclick="navigator.clipboard.writeText('npm install @stukennedy/honi');this.querySelector('span:last-child').textContent='copied!'">
+                    <span>npm install @stukennedy/honi</span>
+                    <span style="color:var(--text-muted);font-size:11px">&crarr;</span>
+                  </div>
+                </div>
+              </div>
+              <div class="qs-step">
+                <span class="qs-num">2</span>
+                <div class="qs-step-content">
+                  <h4>Create Agent</h4>
+                  <p>Define your agent with createAgent() — model, tools, memory, and instructions.</p>
+                </div>
+              </div>
+              <div class="qs-step">
+                <span class="qs-num">3</span>
+                <div class="qs-step-content">
+                  <h4>Deploy</h4>
+                  <p>Ship to 300+ Cloudflare locations with a single command. Global by default.</p>
+                </div>
+              </div>
             </div>
-            <div class="code-body">
-              <div class="line"><span class="ln">1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span> {'}'} <span class="kw">from</span> <span class="str">'honi'</span></span></div>
-              <div class="line"><span class="ln">2</span><span></span></div>
-              <div class="line"><span class="ln">3</span><span><span class="kw">export const</span> <span class="fn">agent</span> <span class="op">=</span> <span class="fn">createAgent</span>({'{'}
-              </span></div>
-              <div class="line"><span class="ln">4</span><span>  <span class="pr">name</span><span class="op">:</span> <span class="str">'my-agent'</span><span class="op">,</span></span></div>
-              <div class="line"><span class="ln">5</span><span>  <span class="pr">model</span><span class="op">:</span> <span class="str">'claude-sonnet-4-20250514'</span><span class="op">,</span></span></div>
-              <div class="line"><span class="ln">6</span><span>  <span class="pr">instructions</span><span class="op">:</span> <span class="str">'You are a helpful assistant.'</span></span></div>
-              <div class="line"><span class="ln">7</span><span>{'}'})</span></div>
+
+            <div class="code-window">
+              <div class="code-header">
+                <div class="code-dots"><span /><span /><span /></div>
+                <span class="code-lang">TypeScript</span>
+              </div>
+              <div class="code-body">
+                <div class="line"><span class="ln">1</span><span><span class="kw">import</span> {'{'} <span class="fn">createAgent</span> {'}'} <span class="kw">from</span> <span class="str">'honi'</span></span></div>
+                <div class="line"><span class="ln">2</span><span></span></div>
+                <div class="line"><span class="ln">3</span><span><span class="kw">export const</span> <span class="fn">agent</span> <span class="op">=</span> <span class="fn">createAgent</span>({'{'}
+                </span></div>
+                <div class="line"><span class="ln">4</span><span>  <span class="pr">name</span><span class="op">:</span> <span class="str">'my-agent'</span><span class="op">,</span></span></div>
+                <div class="line"><span class="ln">5</span><span>  <span class="pr">model</span><span class="op">:</span> <span class="str">'claude-sonnet-4-20250514'</span><span class="op">,</span></span></div>
+                <div class="line"><span class="ln">6</span><span>  <span class="pr">instructions</span><span class="op">:</span> <span class="str">'You are a helpful assistant.'</span></span></div>
+                <div class="line"><span class="ln">7</span><span>{'}'})</span></div>
+              </div>
             </div>
           </div>
         </div>
@@ -1006,16 +1244,27 @@ app.get('/', (c) =>
         <div class="container">
           <div class="footer-inner">
             <span dangerouslySetInnerHTML={{ __html: hexSvg(20) }} />
-            <span>Honi</span>
-            <span>·</span>
-            <span>MIT License</span>
-            <span>·</span>
-            <span>Built by Stu Kennedy</span>
-            <span>·</span>
+            <span class="footer-wordmark">HONI</span>
+            <span>&middot;</span>
+            <span>MIT License &middot; Built by Stu Kennedy</span>
+            <span>&middot;</span>
             <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener">GitHub</a>
+            <span>&middot;</span>
+            <a href="https://www.npmjs.com/package/@stukennedy/honi" target="_blank" rel="noopener">npm</a>
           </div>
         </div>
       </footer>
+
+      {/* ── Copy-to-clipboard script ── */}
+      <script dangerouslySetInnerHTML={{ __html: `
+        document.getElementById('npm-copy').addEventListener('click', function() {
+          navigator.clipboard.writeText('npm install @stukennedy/honi').then(function() {
+            var icon = document.getElementById('copy-icon');
+            icon.textContent = '\\u2713';
+            setTimeout(function() { icon.innerHTML = '\\u2398'; }, 2000);
+          });
+        });
+      `}} />
     </>
   )
 )
