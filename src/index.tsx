@@ -1060,7 +1060,7 @@ app.get('/', (c) =>
           <a href="/docs" class="nav-link">Docs</a>
           <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener" class="nav-link">GitHub</a>
           <button class="npm-pill" id="npm-copy" type="button">
-            <span>npm install honi-cf</span>
+            <span>npm install @stukennedy/honi</span>
             <span class="copy-icon" id="copy-icon">&#x2398;</span>
           </button>
         </div>
@@ -1275,8 +1275,8 @@ app.get('/', (c) =>
                 <span class="qs-num">1</span>
                 <div class="qs-step-content">
                   <h4>Install</h4>
-                  <div class="qs-cmd" onclick="navigator.clipboard.writeText('npm install honi-cf');this.querySelector('span:last-child').textContent='copied!'">
-                    <span>npm install honi-cf</span>
+                  <div class="qs-cmd" onclick="navigator.clipboard.writeText('npm install @stukennedy/honi');this.querySelector('span:last-child').textContent='copied!'">
+                    <span>npm install @stukennedy/honi</span>
                     <span style="color:var(--text-muted);font-size:11px">↵</span>
                   </div>
                 </div>
@@ -1328,7 +1328,7 @@ app.get('/', (c) =>
             <span>·</span>
             <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener">GitHub</a>
             <span>·</span>
-            <a href="https://www.npmjs.com/package/honi-cf" target="_blank" rel="noopener">npm</a>
+            <a href="https://www.npmjs.com/package/@stukennedy/honi" target="_blank" rel="noopener">npm</a>
           </div>
         </div>
       </footer>
@@ -1336,7 +1336,7 @@ app.get('/', (c) =>
       {/* ── Copy-to-clipboard script ── */}
       <script dangerouslySetInnerHTML={{ __html: `
         document.getElementById('npm-copy').addEventListener('click', function() {
-          navigator.clipboard.writeText('npm install honi-cf').then(function() {
+          navigator.clipboard.writeText('npm install @stukennedy/honi').then(function() {
             var icon = document.getElementById('copy-icon');
             icon.textContent = '\\u2713';
             setTimeout(function() { icon.innerHTML = '\\u2398'; }, 2000);
