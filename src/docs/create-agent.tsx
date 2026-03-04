@@ -200,7 +200,7 @@ export const CreateAgentPage = () => (
     </div>
 
     <div class="docs-next">
-      <a href="/docs/tools">Next: Tools &rarr;</a>
+      <a href="/docs/tools">Next: Tools →</a>
     </div>
   </>
 )

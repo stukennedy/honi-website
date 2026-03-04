@@ -148,7 +148,7 @@ export const ToolsPage = () => (
     </div>
 
     <div class="docs-next">
-      <a href="/docs/memory">Next: Memory &rarr;</a>
+      <a href="/docs/memory">Next: Memory →</a>
     </div>
   </>
 )

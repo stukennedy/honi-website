@@ -102,7 +102,7 @@ export const GettingStartedPage = () => (
     <p>Your agent is now live on Cloudflare's global edge network — over 300 locations worldwide.</p>
 
     <div class="docs-next">
-      <a href="/docs/create-agent">Next: createAgent API &rarr;</a>
+      <a href="/docs/create-agent">Next: createAgent API →</a>
     </div>
   </>
 )

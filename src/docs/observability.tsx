@@ -176,7 +176,7 @@ export const ObservabilityPage = () => (
     </div>
 
     <div class="docs-next">
-      <a href="/docs/cli">Next: CLI Reference &rarr;</a>
+      <a href="/docs/cli">Next: CLI Reference →</a>
     </div>
   </>
 )

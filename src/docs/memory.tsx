@@ -145,7 +145,7 @@ export const MemoryPage = () => (
     </div>
 
     <div class="docs-next">
-      <a href="/docs/workflows">Next: Workflows &rarr;</a>
+      <a href="/docs/workflows">Next: Workflows →</a>
     </div>
   </>
 )

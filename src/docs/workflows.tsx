@@ -157,7 +157,7 @@ export const WorkflowsPage = () => (
     </div>
 
     <div class="docs-next">
-      <a href="/docs/observability">Next: Observability &rarr;</a>
+      <a href="/docs/observability">Next: Observability →</a>
     </div>
   </>
 )

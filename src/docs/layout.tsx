@@ -15,7 +15,7 @@ const navItems = [
 export const DocsLayout: FC<PropsWithChildren<{ active: string }>> = ({ children, active }) => (
   <>
     <div class="docs-topbar">
-      <a href="/" class="docs-back">&larr; Back to honi.dev</a>
+      <a href="/" class="docs-back">← Back to honi.dev</a>
       <button class="docs-menu-btn" onclick="document.getElementById('docs-sidebar').classList.toggle('open')">
         ☰ Menu
       </button>

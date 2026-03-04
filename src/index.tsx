@@ -151,6 +151,8 @@ nav {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 32px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* ── Hero ── */
@@ -161,6 +163,8 @@ nav {
   align-items: center;
   padding: 100px 0 80px;
   overflow: hidden;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .hero::before {
@@ -302,6 +306,7 @@ nav {
   background: #0A0C10;
   box-shadow: 0 0 60px rgba(245,158,11,0.15), 0 20px 60px rgba(0,0,0,0.4);
   overflow: hidden;
+  max-width: 100%;
 }
 
 .code-header {
@@ -373,6 +378,7 @@ nav {
   background: #0A0C10;
   overflow: hidden;
   text-align: left;
+  max-width: 100%;
 }
 
 /* ── Sections ── */
@@ -651,27 +657,47 @@ footer::before {
     grid-template-columns: 1fr;
     gap: 48px;
   }
-  .hero { min-height: auto; padding: 140px 0 80px }
+  .hero { min-height: auto; padding: 120px 0 80px }
   .hero-code { transform: none }
-  .hero h1 { font-size: clamp(3.5rem, 12vw, 6rem) }
+  .hero h1 { font-size: clamp(3rem, 12vw, 5rem) }
   .quickstart-grid { grid-template-columns: 1fr }
 }
 
 @media (max-width: 768px) {
   .feature-grid { grid-template-columns: 1fr }
   nav { padding: 0 16px }
-  .container { padding: 0 16px }
+  .container { padding: 0 20px }
+  section { padding: 60px 0 }
+  .punch { padding: 80px 0 }
+  .hero { padding: 80px 0 60px }
+  .hero h1 { font-size: clamp(3rem, 12vw, 5rem) }
+  .hero .sub { font-size: 16px }
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .hero-ctas a, .hero-ctas button {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
   .hero-stats { flex-wrap: wrap; gap: 16px }
+  .hero-stat { font-size: 11px }
+  .section-title { margin-bottom: 32px }
   .compare-table { font-size: 12px }
   .compare-table th, .compare-table td { padding: 10px 14px }
   .npm-pill { display: none }
+  .code-body { font-size: 12px; padding: 16px }
+  .docs-code { max-width: 100%; overflow-x: auto }
 }
 
 @media (max-width: 480px) {
-  .hero-ctas { flex-direction: column; align-items: flex-start }
-  .hero h1 { font-size: 3rem }
+  .hero h1 { font-size: 2.8rem }
   .punch h2 { font-size: 2.2rem }
-  .nav-right { gap: 16px }
+  .nav-right { gap: 12px }
+  .nav-link { font-size: 11px }
+  .container { padding: 0 16px }
 }
 
 /* ── Docs Layout ── */
@@ -976,8 +1002,12 @@ footer::before {
   }
   .docs-main {
     margin-left: 0;
-    padding: 32px 20px 60px;
+    padding: 24px 20px 60px;
   }
+  .docs-content h1 { font-size: 32px; margin-bottom: 8px }
+  .docs-lead { margin-bottom: 24px }
+  .docs-content h2 { margin-top: 32px; margin-bottom: 12px; padding-top: 16px }
+  .docs-content h3 { margin-top: 24px }
 }
 `
 
@@ -1038,7 +1068,7 @@ app.get('/', (c) =>
         <div class="container">
           <div class="hero-grid">
             <div class="hero-left">
-              <div class="hero-label">Cloudflare Workers &times; Durable Objects</div>
+              <div class="hero-label">Cloudflare Workers × Durable Objects</div>
               <h1>
                 EDGE-FIRST<br />AI AGENTS
               </h1>
@@ -1047,8 +1077,8 @@ app.get('/', (c) =>
                 Build stateful, streaming agents backed by Durable Objects. No server. No Redis. No cold starts.
               </p>
               <div class="hero-ctas">
-                <a href="/docs/getting-started" class="btn-primary">GET STARTED &rarr;</a>
-                <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener" class="btn-ghost">GITHUB &nearr;</a>
+                <a href="/docs/getting-started" class="btn-primary">GET STARTED →</a>
+                <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener" class="btn-ghost">GITHUB ↗</a>
               </div>
               <div class="hero-stats">
                 <div class="hero-stat">
@@ -1244,7 +1274,7 @@ app.get('/', (c) =>
                   <h4>Install</h4>
                   <div class="qs-cmd" onclick="navigator.clipboard.writeText('npm install honi-cf');this.querySelector('span:last-child').textContent='copied!'">
                     <span>npm install honi-cf</span>
-                    <span style="color:var(--text-muted);font-size:11px">&crarr;</span>
+                    <span style="color:var(--text-muted);font-size:11px">↵</span>
                   </div>
                 </div>
               </div>
@@ -1290,11 +1320,11 @@ app.get('/', (c) =>
           <div class="footer-inner">
             <span dangerouslySetInnerHTML={{ __html: hexSvg(20) }} />
             <span class="footer-wordmark">HONI</span>
-            <span>&middot;</span>
-            <span>MIT License &middot; Built by Stu Kennedy</span>
-            <span>&middot;</span>
+            <span>·</span>
+            <span>MIT License · Built by Stu Kennedy</span>
+            <span>·</span>
             <a href="https://github.com/stukennedy/honi" target="_blank" rel="noopener">GitHub</a>
-            <span>&middot;</span>
+            <span>·</span>
             <a href="https://www.npmjs.com/package/honi-cf" target="_blank" rel="noopener">npm</a>
           </div>
         </div>

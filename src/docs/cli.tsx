@@ -121,7 +121,7 @@ export const CliPage = () => (
     </div>
 
     <div class="docs-next">
-      <a href="/docs/getting-started">&larr; Back to Getting Started</a>
+      <a href="/docs/getting-started">← Back to Getting Started</a>
     </div>
   </>
 )
