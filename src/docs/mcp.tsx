@@ -48,6 +48,51 @@ export const McpPage = () => (
     <h2 id="cursor">Connect from Cursor</h2>
     <p>In Cursor settings → MCP, add a new server with the <code>/mcp</code> URL of your deployed worker.</p>
 
+    <h2 id="auth">Authentication</h2>
+    <p>The <code>/mcp</code> endpoint is unauthenticated by default — fine for local Claude Desktop (stdio transport). For remote connections, lock it down with a Bearer token.</p>
+    <p>Set <code>mcp.secretEnvVar</code> in your agent config:</p>
+    <div class="code-window docs-code">
+      <div class="code-header">
+        <div class="code-dots"><span /><span /><span /></div>
+        <span class="code-lang">TypeScript</span>
+      </div>
+      <div class="code-body">
+        <div class="line"><span class="ln"> 1</span><span><span class="fn">createAgent</span>({'{'}</span></div>
+        <div class="line"><span class="ln"> 2</span><span>  <span class="pr">name</span><span class="op">:</span> <span class="str">'my-agent'</span><span class="op">,</span></span></div>
+        <div class="line"><span class="ln"> 3</span><span>  <span class="pr">model</span><span class="op">:</span> <span class="str">'claude-sonnet-4-5'</span><span class="op">,</span></span></div>
+        <div class="line"><span class="ln"> 4</span><span>  <span class="pr">tools</span><span class="op">:</span> [<span class="fn">searchDocs</span>]<span class="op">,</span></span></div>
+        <div class="line"><span class="ln"> 5</span><span>  <span class="pr">mcp</span><span class="op">:</span> {'{'} <span class="pr">secretEnvVar</span><span class="op">:</span> <span class="str">'MCP_SECRET'</span> {'}'}</span></div>
+        <div class="line"><span class="ln"> 6</span><span>{'}'})</span></div>
+      </div>
+    </div>
+    <p>Set the secret via Wrangler:</p>
+    <div class="code-window docs-code">
+      <div class="code-header">
+        <div class="code-dots"><span /><span /><span /></div>
+        <span class="code-lang">Shell</span>
+      </div>
+      <div class="code-body">
+        <div class="line"><span class="ln">$</span><span>wrangler secret put MCP_SECRET</span></div>
+      </div>
+    </div>
+    <p>Clients send <code>Authorization: Bearer &lt;secret&gt;</code> on every request. For Claude Desktop with a remote agent:</p>
+    <div class="code-window docs-code">
+      <div class="code-header">
+        <div class="code-dots"><span /><span /><span /></div>
+        <span class="code-lang">JSON — claude_desktop_config.json</span>
+      </div>
+      <div class="code-body">
+        <div class="line"><span class="ln"> 1</span><span>{'{'}</span></div>
+        <div class="line"><span class="ln"> 2</span><span>  <span class="str">"mcpServers"</span><span class="op">:</span> {'{'}</span></div>
+        <div class="line"><span class="ln"> 3</span><span>    <span class="str">"my-honi-agent"</span><span class="op">:</span> {'{'}</span></div>
+        <div class="line"><span class="ln"> 4</span><span>      <span class="str">"url"</span><span class="op">:</span> <span class="str">"https://my-agent.workers.dev/mcp"</span><span class="op">,</span></span></div>
+        <div class="line"><span class="ln"> 5</span><span>      <span class="str">"headers"</span><span class="op">:</span> {'{'} <span class="str">"Authorization"</span><span class="op">:</span> <span class="str">"Bearer your-secret"</span> {'}'}</span></div>
+        <div class="line"><span class="ln"> 6</span><span>    {'}'}</span></div>
+        <div class="line"><span class="ln"> 7</span><span>  {'}'}</span></div>
+        <div class="line"><span class="ln"> 8</span><span>{'}'}</span></div>
+      </div>
+    </div>
+
     <h2 id="standalone">Standalone MCP Server</h2>
     <p>You can also use <code>createMcpServer</code> directly without <code>createAgent</code> — useful for exposing a set of tools without a chat interface:</p>
     <div class="code-window docs-code">
