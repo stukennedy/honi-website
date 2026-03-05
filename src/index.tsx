@@ -755,22 +755,23 @@ footer::before {
 }
 
 .docs-shell {
-  display: grid;
-  grid-template-columns: 240px 1fr;
+  display: flex;
+  flex-direction: row;
   min-height: calc(100vh - 48px);
   margin-top: 48px;
-  align-items: start;
 }
 
 .docs-sidebar {
+  flex: 0 0 240px;
+  width: 240px;
   position: sticky;
   top: 48px;
-  height: calc(100vh - 48px);
+  align-self: flex-start;
+  max-height: calc(100vh - 48px);
   overflow-y: auto;
   padding: 24px 20px;
   border-right: 1px solid var(--border);
   background: var(--bg);
-  z-index: 50;
 }
 
 .docs-nav {
@@ -842,6 +843,8 @@ footer::before {
 }
 
 .docs-main {
+  flex: 1;
+  min-width: 0;
   padding: 48px 56px 80px;
   max-width: 900px;
 }
@@ -995,7 +998,7 @@ footer::before {
 @media (max-width: 768px) {
   .docs-menu-btn { display: flex; align-items: center; gap: 6px; }
   .docs-shell {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
   .docs-sidebar {
     display: none;
@@ -1024,7 +1027,6 @@ footer::before {
     border-radius: 0;
   }
   .docs-main {
-    grid-column: 1;
     margin-left: 0;
     padding: 24px 20px 60px;
   }
