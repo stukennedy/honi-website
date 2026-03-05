@@ -77,10 +77,11 @@ body::after {
 a { color: inherit; text-decoration: none }
 
 /* Everything rendered needs z-index above bg */
-nav, section, footer, .docs-topbar { position: relative; z-index: 2; }
+section, footer, .docs-topbar { position: relative; z-index: 2; }
+nav.main-nav { position: relative; z-index: 2; }
 
 /* ── Nav ── */
-nav {
+nav.main-nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
@@ -674,7 +675,7 @@ footer::before {
 
 @media (max-width: 768px) {
   .feature-grid { grid-template-columns: 1fr }
-  nav { padding: 0 16px }
+  nav.main-nav { padding: 0 16px }
   .container { padding: 0 16px }
   section { padding: 60px 0 }
   .punch { padding: 80px 0 }
@@ -1071,7 +1072,7 @@ app.get('/', (c) =>
   c.render(
     <>
       {/* ── Nav ── */}
-      <nav>
+      <nav class="main-nav">
         <a href="/" class="nav-left">
           <span dangerouslySetInnerHTML={{ __html: hexSvg(28) }} />
           <span class="nav-wordmark">HONI</span>
