@@ -78,7 +78,6 @@ a { color: inherit; text-decoration: none }
 
 /* Everything rendered needs z-index above bg */
 nav, section, footer, .docs-topbar { position: relative; z-index: 2; }
-.docs-shell { position: relative; z-index: 2; }
 
 /* ── Nav ── */
 nav {
@@ -757,6 +756,7 @@ footer::before {
 .docs-shell {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   min-height: calc(100vh - 48px);
   margin-top: 48px;
 }
@@ -764,10 +764,6 @@ footer::before {
 .docs-sidebar {
   flex: 0 0 240px;
   width: 240px;
-  position: sticky;
-  top: 48px;
-  align-self: flex-start;
-  max-height: calc(100vh - 48px);
   overflow-y: auto;
   padding: 24px 20px;
   border-right: 1px solid var(--border);
