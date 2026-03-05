@@ -755,17 +755,17 @@ footer::before {
 }
 
 .docs-shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
   min-height: calc(100vh - 48px);
   margin-top: 48px;
-  padding-left: 240px;
+  align-items: start;
 }
 
 .docs-sidebar {
-  position: fixed;
+  position: sticky;
   top: 48px;
-  left: 0;
-  bottom: 0;
-  width: 240px;
+  height: calc(100vh - 48px);
   overflow-y: auto;
   padding: 24px 20px;
   border-right: 1px solid var(--border);
@@ -994,31 +994,37 @@ footer::before {
 
 @media (max-width: 768px) {
   .docs-menu-btn { display: flex; align-items: center; gap: 6px; }
-  .docs-shell { padding-left: 0; }
+  .docs-shell {
+    grid-template-columns: 1fr;
+  }
   .docs-sidebar {
     display: none;
     position: fixed;
     top: 48px;
     left: 0;
     right: 0;
-    bottom: 0;
     width: 100%;
+    height: auto;
+    max-height: calc(100vh - 48px);
     z-index: 90;
     background: var(--bg);
     overflow-y: auto;
-    padding: 24px 28px 80px;
+    padding: 16px 28px 32px;
     border-right: none;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
   }
   .docs-sidebar.open { display: block }
   .docs-sidebar-header { display: flex }
-  .docs-nav-heading { font-size: 12px; margin-top: 24px; }
+  .docs-nav-heading { font-size: 12px; margin-top: 20px; }
   .docs-nav-link {
-    font-size: 16px;
-    padding: 14px 12px;
+    font-size: 15px;
+    padding: 12px 12px;
     border-bottom: 1px solid var(--border);
     border-radius: 0;
   }
   .docs-main {
+    grid-column: 1;
     margin-left: 0;
     padding: 24px 20px 60px;
   }
