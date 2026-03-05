@@ -9,6 +9,7 @@ import { WorkflowsPage } from './docs/workflows'
 import { ObservabilityPage } from './docs/observability'
 import { McpPage } from './docs/mcp'
 import { MultiAgentPage } from './docs/multiagent'
+import { GraphPage } from './docs/graph'
 import { CliPage } from './docs/cli'
 
 const app = new Hono()
@@ -1185,7 +1186,14 @@ app.get('/', (c) =>
                 <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
                 <h3>Tiered Memory</h3>
               </div>
-              <p>Working (DO), Episodic (D1), Semantic (Vectorize). Wired up out of the box.</p>
+              <p>Working (DO), Episodic (D1), Semantic (Vectorize), Graph (edgraph). Four tiers, zero glue code.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card-top">
+                <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
+                <h3>Graph Memory</h3>
+              </div>
+              <p>Entity and relationship recall via <a href="/docs/graph-memory" style="color:var(--amber)">edgraph</a> — an edge-native property graph on Cloudflare DOs. BFS/DFS traversal at zero per-hop cost. Tools write directly to the graph via <code style="background:rgba(245,158,11,0.1);padding:1px 5px;border-radius:3px;font-size:12px">ctx.graph</code>.</p>
             </div>
             <div class="feature-card">
               <div class="feature-card-top">
@@ -1281,6 +1289,13 @@ app.get('/', (c) =>
                 </tr>
                 <tr>
                   <td>MCP server built-in</td>
+                  <td><span class="check">&#x2726;</span></td>
+                  <td><span class="cross">&#x2717;</span></td>
+                  <td><span class="cross">&#x2717;</span></td>
+                  <td><span class="cross">&#x2717;</span></td>
+                </tr>
+                <tr>
+                  <td>Graph memory (edgraph)</td>
                   <td><span class="check">&#x2726;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
                   <td><span class="cross">&#x2717;</span></td>
@@ -1421,6 +1436,14 @@ app.get('/docs/memory', (c) =>
   c.render(
     <DocsLayout active="/docs/memory">
       <MemoryPage />
+    </DocsLayout>
+  )
+)
+
+app.get('/docs/graph-memory', (c) =>
+  c.render(
+    <DocsLayout active="/docs/graph-memory">
+      <GraphPage />
     </DocsLayout>
   )
 )

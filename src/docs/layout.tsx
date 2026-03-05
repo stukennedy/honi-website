@@ -6,6 +6,7 @@ const navItems = [
   { href: '/docs/create-agent', label: 'createAgent' },
   { href: '/docs/tools', label: 'Tools' },
   { href: '/docs/memory', label: 'Memory' },
+  { href: '/docs/graph-memory', label: 'Graph Memory' },
   { href: '/docs/workflows', label: 'Workflows' },
   { href: '/docs/observability', label: 'Observability' },
   { heading: 'Integrations' },

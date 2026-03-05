@@ -1,7 +1,7 @@
 export const MemoryPage = () => (
   <>
     <h1>Memory</h1>
-    <p class="docs-lead">Honi provides three tiers of memory, each backed by a different Cloudflare primitive. Use one, two, or all three depending on your agent's needs.</p>
+    <p class="docs-lead">Honi provides four tiers of memory, each backed by a different Cloudflare primitive. Use one, two, or all four depending on your agent's needs.</p>
 
     <h2 id="overview">Overview</h2>
     <div class="docs-table-wrap">
@@ -32,6 +32,12 @@ export const MemoryPage = () => (
             <td>Vectorize + Workers AI</td>
             <td>Permanent</td>
             <td>Similarity search over knowledge, RAG</td>
+          </tr>
+          <tr>
+            <td><strong><a href="/docs/graph-memory" style="color:var(--purple,#A78BFA)">Graph</a></strong></td>
+            <td>edgraph (Durable Object)</td>
+            <td>Permanent</td>
+            <td>Entity relationships, knowledge graphs, structural recall</td>
           </tr>
         </tbody>
       </table>
@@ -144,8 +150,9 @@ export const MemoryPage = () => (
       </div>
     </div>
 
-    <div class="docs-next">
-      <a href="/docs/workflows">Next: Workflows →</a>
+    <div class="docs-next" style="display:flex;gap:16px;flex-wrap:wrap">
+      <a href="/docs/graph-memory">Graph Memory →</a>
+      <a href="/docs/workflows" style="color:var(--text-secondary)">Workflows →</a>
     </div>
   </>
 )
