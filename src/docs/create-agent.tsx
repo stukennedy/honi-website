@@ -67,41 +67,111 @@ export const CreateAgentPage = () => (
     </div>
 
     <h2 id="models">Supported Models</h2>
+    <p>Honi routes to the right provider automatically based on the model ID prefix. All non-core providers use optional peer deps — zero bundle cost unless installed.</p>
     <div class="docs-table-wrap">
       <table class="docs-table">
         <thead>
           <tr>
             <th>Provider</th>
-            <th>Model String</th>
+            <th>Prefix</th>
+            <th>Example model</th>
+            <th>Env var</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Anthropic</td>
-            <td><code>'claude-sonnet-4-20250514'</code></td>
-          </tr>
-          <tr>
-            <td>Anthropic</td>
-            <td><code>'claude-haiku-3-5-20241022'</code></td>
-          </tr>
-          <tr>
-            <td>Anthropic</td>
-            <td><code>'claude-opus-4-20250514'</code></td>
+            <td><code>claude-*</code></td>
+            <td><code>claude-sonnet-4-5</code></td>
+            <td><code>ANTHROPIC_API_KEY</code></td>
           </tr>
           <tr>
             <td>OpenAI</td>
-            <td><code>'gpt-4o'</code></td>
+            <td><code>gpt-*</code>, <code>o1</code>, <code>o3-*</code></td>
+            <td><code>gpt-4o</code>, <code>o3-mini</code></td>
+            <td><code>OPENAI_API_KEY</code></td>
           </tr>
           <tr>
-            <td>OpenAI</td>
-            <td><code>'gpt-4o-mini'</code></td>
+            <td>Google</td>
+            <td><code>gemini-*</code></td>
+            <td><code>gemini-2.5-flash-preview</code></td>
+            <td><code>GOOGLE_AI_API_KEY</code></td>
+          </tr>
+          <tr>
+            <td>Groq</td>
+            <td><code>groq/*</code></td>
+            <td><code>groq/llama-3.3-70b-versatile</code></td>
+            <td><code>GROQ_API_KEY</code></td>
+          </tr>
+          <tr>
+            <td>DeepSeek</td>
+            <td><code>deepseek-*</code></td>
+            <td><code>deepseek-chat</code>, <code>deepseek-reasoner</code></td>
+            <td><code>DEEPSEEK_API_KEY</code></td>
+          </tr>
+          <tr>
+            <td>Mistral</td>
+            <td><code>mistral-*</code>, <code>codestral-*</code></td>
+            <td><code>mistral-large-latest</code></td>
+            <td><code>MISTRAL_API_KEY</code></td>
+          </tr>
+          <tr>
+            <td>xAI</td>
+            <td><code>grok-*</code></td>
+            <td><code>grok-3</code>, <code>grok-3-mini</code></td>
+            <td><code>XAI_API_KEY</code></td>
+          </tr>
+          <tr>
+            <td>Perplexity</td>
+            <td><code>sonar*</code></td>
+            <td><code>sonar-pro</code>, <code>sonar-reasoning</code></td>
+            <td><code>PERPLEXITY_API_KEY</code></td>
+          </tr>
+          <tr>
+            <td>Together AI</td>
+            <td><code>together/*</code></td>
+            <td><code>together/meta-llama/Llama-3.3-70B-Instruct-Turbo</code></td>
+            <td><code>TOGETHER_API_KEY</code></td>
+          </tr>
+          <tr>
+            <td>Cohere</td>
+            <td><code>command-*</code></td>
+            <td><code>command-r-plus</code>, <code>command-a-03-2025</code></td>
+            <td><code>COHERE_API_KEY</code></td>
+          </tr>
+          <tr>
+            <td>Azure OpenAI</td>
+            <td><code>azure/*</code></td>
+            <td><code>azure/gpt-4o</code></td>
+            <td><code>AZURE_OPENAI_API_KEY</code> + <code>AZURE_OPENAI_ENDPOINT</code></td>
           </tr>
           <tr>
             <td>Workers AI</td>
-            <td><code>'@cf/meta/llama-3.1-70b-instruct'</code></td>
+            <td><code>@cf/*</code></td>
+            <td><code>@cf/meta/llama-3.1-8b-instruct</code></td>
+            <td><code>AI</code> binding (wrangler.toml)</td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <p>Non-core providers require their AI SDK package:</p>
+    <div class="code-window docs-code">
+      <div class="code-header">
+        <div class="code-dots"><span /><span /><span /></div>
+        <span class="code-lang">Shell</span>
+      </div>
+      <div class="code-body">
+        <div class="line"><span class="ln">$</span><span>npm install @ai-sdk/google      <span class="cm"># Google Gemini</span></span></div>
+        <div class="line"><span class="ln">$</span><span>npm install @ai-sdk/groq        <span class="cm"># Groq</span></span></div>
+        <div class="line"><span class="ln">$</span><span>npm install @ai-sdk/deepseek    <span class="cm"># DeepSeek</span></span></div>
+        <div class="line"><span class="ln">$</span><span>npm install @ai-sdk/mistral     <span class="cm"># Mistral</span></span></div>
+        <div class="line"><span class="ln">$</span><span>npm install @ai-sdk/xai         <span class="cm"># xAI</span></span></div>
+        <div class="line"><span class="ln">$</span><span>npm install @ai-sdk/perplexity  <span class="cm"># Perplexity</span></span></div>
+        <div class="line"><span class="ln">$</span><span>npm install @ai-sdk/togetherai  <span class="cm"># Together AI</span></span></div>
+        <div class="line"><span class="ln">$</span><span>npm install @ai-sdk/cohere      <span class="cm"># Cohere</span></span></div>
+        <div class="line"><span class="ln">$</span><span>npm install @ai-sdk/azure       <span class="cm"># Azure OpenAI</span></span></div>
+        <div class="line"><span class="ln">$</span><span>npm install @ai-sdk/cloudflare  <span class="cm"># Workers AI</span></span></div>
+      </div>
     </div>
 
     <h2 id="endpoints">HTTP Endpoints</h2>
