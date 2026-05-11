@@ -1,3 +1,7 @@
 name = "honi-website"
 main = "src/index.tsx"
 compatibility_date = "2024-01-01"
+
+[alias]
+"hono/jsx/jsx-runtime" = "./node_modules/hono/dist/jsx/jsx-runtime.js"
+"hono/jsx/jsx-dev-runtime" = "./node_modules/hono/dist/jsx/jsx-dev-runtime.js"
