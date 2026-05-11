@@ -39,6 +39,12 @@ export const MemoryPage = () => (
             <td>Permanent</td>
             <td>Entity relationships, knowledge graphs, structural recall</td>
           </tr>
+          <tr>
+            <td><strong><a href="/docs/recursive-memory" style="color:var(--teal,#2DD4BF)">Recursive</a></strong></td>
+            <td>Durable Object storage</td>
+            <td>Session-scoped</td>
+            <td>Iterative KB queries, support docs, product manuals — RLM pattern</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -152,6 +158,7 @@ export const MemoryPage = () => (
 
     <div class="docs-next" style="display:flex;gap:16px;flex-wrap:wrap">
       <a href="/docs/graph-memory">Graph Memory →</a>
+      <a href="/docs/recursive-memory" style="color:var(--teal,#2DD4BF)">Recursive Memory →</a>
       <a href="/docs/workflows" style="color:var(--text-secondary)">Workflows →</a>
     </div>
   </>

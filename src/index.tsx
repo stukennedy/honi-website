@@ -10,6 +10,7 @@ import { ObservabilityPage } from './docs/observability'
 import { McpPage } from './docs/mcp'
 import { MultiAgentPage } from './docs/multiagent'
 import { GraphPage } from './docs/graph'
+import { RecursivePage } from './docs/recursive'
 import { CliPage } from './docs/cli'
 
 const app = new Hono()
@@ -1191,7 +1192,7 @@ app.get('/', (c) =>
                 <span dangerouslySetInnerHTML={{ __html: hexIcon(24) }} />
                 <h3>Tiered Memory</h3>
               </div>
-              <p>Working (DO), Episodic (D1), Semantic (Vectorize), Graph (edgraph). Four tiers, zero glue code.</p>
+              <p>Working (DO), Episodic (D1), Semantic (Vectorize), Graph (edgraph), Recursive (RLM). Five tiers, zero glue code.</p>
             </div>
             <div class="feature-card">
               <div class="feature-card-top">
@@ -1449,6 +1450,14 @@ app.get('/docs/graph-memory', (c) =>
   c.render(
     <DocsLayout active="/docs/graph-memory">
       <GraphPage />
+    </DocsLayout>
+  )
+)
+
+app.get('/docs/recursive-memory', (c) =>
+  c.render(
+    <DocsLayout active="/docs/recursive-memory">
+      <RecursivePage />
     </DocsLayout>
   )
 )

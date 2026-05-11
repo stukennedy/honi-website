@@ -7,6 +7,7 @@ const navItems = [
   { href: '/docs/tools', label: 'Tools' },
   { href: '/docs/memory', label: 'Memory' },
   { href: '/docs/graph-memory', label: 'Graph Memory' },
+  { href: '/docs/recursive-memory', label: 'Recursive Memory' },
   { href: '/docs/workflows', label: 'Workflows' },
   { href: '/docs/observability', label: 'Observability' },
   { heading: 'Integrations' },
